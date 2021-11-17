@@ -11,9 +11,9 @@ const DrawerMenu = createDrawerNavigator();
 
 function ExerciseDrawerMenu(){
     return(
-        <DrawerMenu.Navigator>
+        <DrawerMenu.Navigator screenOptions={{headerStyle: {backgroundColor: '#f4511e',}}}>
             <DrawerMenu.Screen name="Static Today" component={StaticADayPage}></DrawerMenu.Screen>
-            <DrawerMenu.Screen name="Calories CalCulate" component={CaloriesCalculatePage}></DrawerMenu.Screen>
+            <DrawerMenu.Screen name="Calories CalCulator" component={CaloriesCalculatePage}></DrawerMenu.Screen>
             <DrawerMenu.Screen name="Schedule" component={ScheduleAndNotificationPage}></DrawerMenu.Screen>
         </DrawerMenu.Navigator>
     )
