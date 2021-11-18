@@ -23,7 +23,7 @@ const DrawerMenu = createDrawerNavigator();
 
 function ExerciseDrawerMenu(){
     return(
-        <DrawerMenu.Navigator screenOptions={{headerStyle: {backgroundColor: '#f4511e',}}}>
+        <DrawerMenu.Navigator screenOptions={{headerStyle: {backgroundColor: '#ff0000',}}}>
             <DrawerMenu.Screen name="Static Today" component={StaticADayPage}></DrawerMenu.Screen>
             <DrawerMenu.Screen name="Calories CalCulate" component={CaloriesCalculatePage}></DrawerMenu.Screen>
             <DrawerMenu.Screen name="Schedule" component={ScheduleAndNotificationPage}></DrawerMenu.Screen>
@@ -62,7 +62,7 @@ function FirstPage(){
 export default function MyNavigator() {
     return(
         <NavigationContainer>
-            <FirstPage/>
+            <ExerciseDrawerMenu/>
         </NavigationContainer>
     )
 }
