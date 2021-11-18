@@ -15,7 +15,7 @@ const initialValues = {
     password: ''
 }
 
-const loginPage = () => {
+const loginPage = (props) => {
     return(
         <Formik
             initialValues={initialValues}
@@ -23,6 +23,7 @@ const loginPage = () => {
             onSubmit={(values, {resetForm}) => {
                 // do something
                 console.log(values)
+                props.navigation.navigate('calculatePage')
                 resetForm({values: initialValues})
             }}
         >
