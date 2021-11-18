@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, TouchableOpacity, TextInput, View, StyleSheet, Image } from 'react-native';
 import { Formik, ErrorMessage } from 'formik';
 import * as Yup from "yup";
+import axios from "axios";
 
 const SignupSchema = Yup.object().shape({
     name: Yup.string()
@@ -37,6 +38,18 @@ const registerPage = () => {
             validationSchema={SignupSchema}
             onSubmit={(values, {resetForm}) => {
                 // do something
+                axios.post("http://localhost:5000/register", {
+                    username: values.name,
+                    email: values.email,
+                    password: values.password,
+                    passwordConfirm: values.passwordConfirm
+                })
+                .then((response) => {
+                    console.log(response)
+                })
+                .catch((err) => {
+                    alert(err);
+                });
                 console.log(values)
                 resetForm({values: initialValues})
             }}
