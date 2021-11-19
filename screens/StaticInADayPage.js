@@ -13,7 +13,7 @@ export default function StaticADayPage(){
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
+      backgroundColor: '#3776D4',
       alignItems: 'center',
     },
   });
