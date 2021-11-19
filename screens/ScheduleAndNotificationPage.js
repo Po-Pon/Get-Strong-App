@@ -18,6 +18,7 @@ export default function SchedulePage({ navigation }){
           }}
           todayBackgroundColor="yellow"
           ></CalendarPicker>
+          {selectDate != "" &&
           <View pointerEvents="auto" style={styles.selectdaySchedules}>
             <Text style={styles.textDate}>{selectDate}</Text>
             <Text style={styles.textSchedule}>Your Schedules</Text>
@@ -28,6 +29,7 @@ export default function SchedulePage({ navigation }){
             <Text>Watch Your Static</Text>
             </TouchableOpacity>
           </View>
+          }
         </View>
     )
 }

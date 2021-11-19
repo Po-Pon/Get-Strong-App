@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import moment from 'moment';
 
-export default function StaticADayPage(){
+export default function StaticADayPage(props){
     const [timeNow, setTimeNow] = useState(new moment())
     const [calories, setCalories] = useState(0)
     const [dayProgress, setDayProgress] = useState(0.1)
