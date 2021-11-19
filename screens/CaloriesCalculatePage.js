@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
-import { StyleSheet, Text, View,  TextInput, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View,  TextInput, TouchableOpacity, Picker} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function StaticADayPage(){
@@ -10,6 +10,8 @@ export default function StaticADayPage(){
     const [height, setHeight] = useState("")
     const [manIcon, setManIcon] = useState("man-outline")
     const [womanIcon, setWomanIcon] = useState("woman-outline")
+    const [allSelectedValue, setAllSelectedValue] = useState(["exercise 1", "exercise 2", "exercise 3", "exercise 4", "exercise 5"])
+    const [selectedValue, setSelectedValue] = useState();
  
 
     const selectSex = (select) => {
@@ -51,6 +53,17 @@ export default function StaticADayPage(){
             </View>
             <View style={styles.textBox}>
                 <Text style={{marginRight: 15, fontSize: 20}}>Activity</Text>
+                <View style={{borderColor: 'black', borderWidth: 4}}>
+                    <Picker
+                        selectedValue={selectedValue}
+                        style={styles.select}
+                        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+                    >
+                    {allSelectedValue.map((item, index) => {
+                        return <Picker.Item label={item} value={item} key={index}/>
+                    })}
+                    </Picker>
+                </View>
             </View>
         </View>
     )
@@ -78,5 +91,12 @@ const styles = StyleSheet.create({
         height: "100%",
         width: 4,
         backgroundColor: 'black'
+    },
+    select: {
+        width: 150,
+        height: 45,
+        
+        borderWidth: 4,
+        borderColor: 'black'
     }
   });

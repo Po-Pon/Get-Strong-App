@@ -21,12 +21,20 @@ const Tab = createBottomTabNavigator();
 
 const DrawerMenu = createDrawerNavigator();
 
+function ScheduleProgress(){
+    return(
+        <Stack.Navigator screenOptions={{headerStyle: {backgroundColor: '#ff0000',}}}>
+            <Stack.Screen name="Your Schedule" component={ScheduleAndNotificationPage}></Stack.Screen>
+            <Stack.Screen name="Static Today" component={StaticADayPage}></Stack.Screen>
+        </Stack.Navigator>
+    )
+}
+
 function ExerciseDrawerMenu(){
     return(
         <DrawerMenu.Navigator screenOptions={{headerStyle: {backgroundColor: '#ff0000',}}}>
-            <DrawerMenu.Screen name="Static Today" component={StaticADayPage}></DrawerMenu.Screen>
-            <DrawerMenu.Screen name="Calories CalCulate" component={CaloriesCalculatePage}></DrawerMenu.Screen>
-            <DrawerMenu.Screen name="Schedule" component={ScheduleAndNotificationPage}></DrawerMenu.Screen>
+            <DrawerMenu.Screen name="Calorie Calculator" component={CaloriesCalculatePage}></DrawerMenu.Screen>
+            <DrawerMenu.Screen name="Your Schedule" component={ScheduleProgress} options={{headerShown: false}}></DrawerMenu.Screen>
         </DrawerMenu.Navigator>
     )
 }
