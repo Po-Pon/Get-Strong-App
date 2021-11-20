@@ -1,18 +1,63 @@
 import { StatusBar } from 'expo-status-bar';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View,  TextInput, TouchableOpacity, Picker, ScrollView} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-export default function StaticADayPage(){
-    const [age, setAge] = useState("0")
-    const [sex, setSex] = useState("0")
-    const [weight, setWeight] = useState("0")
-    const [height, setHeight] = useState("0")
+export default function StaticADayPage({route}){
+    const [age, setAge] = useState("")
+    const [sex, setSex] = useState("")
+    const [weight, setWeight] = useState("")
+    const [height, setHeight] = useState("")
     const [manIcon, setManIcon] = useState("man-outline")
     const [womanIcon, setWomanIcon] = useState("woman-outline")
-    const [allSelectedValue, setAllSelectedValue] = useState(["exercise 1", "exercise 2", "exercise 3", "exercise 4", "exercise 5"])
-    const [selectedValue, setSelectedValue] = useState("");
- 
+    const [dailyLife, setDailyLife] = useState("");
+    const [calories, setCalories] = useState(0)
+    const allDailyLife = [
+        "นั่งทำงานอยู่กับที่ และไม่ได้ออกกำลังกายเลย",
+        "ออกกำลังกายหรือเล่นกีฬาเล็กน้อย ประมาณอาทิตย์ละ 1-3 วัน",
+        "ออกกำลังกายหรือเล่นกีฬาปานกลาง ประมาณอาทิตย์ละ 3-5 วัน",
+        "ออกกำลังกายหรือเล่นกีฬาอย่างหนัก ประมาณอาทิตย์ละ 6-7 วัน",
+        "ออกกำลังกายหรือเล่นกีฬาอย่างหนักทุกวันเช้าเย็น"
+    ]
+    const [ageAuth, setAgeAuth] = useState("")
+    const [sexAuth, setSexAuth] = useState("")
+    const [weightAuth, setWeightAuth] = useState("")
+    const [heightAuth, setHeightAuth] = useState("")
+    const [dailyAuth, setDailyAuth] = useState("")
+
+    useEffect(() => {
+        setAgeAuth(age == "")
+        setSexAuth(sex == "")
+        setHeightAuth(height == "")
+        setWeightAuth(weight == "")
+    })
+
+    const screenDailyBurn = (value) => {
+
+        let BMR = 0;
+        if(sex == "man"){
+            BMR = 66 + (13.7*weight) + (5*height) - (6.8*age)
+        }
+        else if(sex == "woman"){
+            BMR = 665 + (9.6*weight) + (1.8*height) - (4.7*age)
+        }
+
+        if(value === "นั่งทำงานอยู่กับที่ และไม่ได้ออกกำลังกายเลย"){
+            setCalories(Math.round((BMR*1.2)-BMR)/2)
+        }
+        else if(value === "ออกกำลังกายหรือเล่นกีฬาเล็กน้อย ประมาณอาทิตย์ละ 1-3 วัน"){
+            setCalories(Math.round((BMR*1.375)-BMR)/2)
+        }
+        else if(value === "ออกกำลังกายหรือเล่นกีฬาปานกลาง ประมาณอาทิตย์ละ 3-5 วัน"){
+            setCalories(Math.round((BMR*1.55)-BMR)/2)
+        }
+        else if(value === "ออกกำลังกายหรือเล่นกีฬาอย่างหนัก ประมาณอาทิตย์ละ 6-7 วัน"){
+            setCalories(Math.round((BMR*1.725)-BMR)/2)
+        }
+        else if(value === "ออกกำลังกายหรือเล่นกีฬาอย่างหนักทุกวันเช้าเย็น"){
+            setCalories(Math.round((BMR*1.9)-BMR)/2)
+        }
+    }
 
     const selectSex = (select) => {
         if(select === "man"){
@@ -26,6 +71,8 @@ export default function StaticADayPage(){
             setWomanIcon("woman")
         }
     }
+
+    
 
     return(
         <View style={styles.container}>
@@ -41,34 +88,42 @@ export default function StaticADayPage(){
                 </TouchableOpacity>
                 
             </View>
+            {ageAuth == true && <Text style={styles.auth}>Please Key your Age in field</Text>}
+            {sexAuth == true &&<Text style={styles.auth}>Please Select Your Gender</Text>}
             <View style={styles.textBox}>
                 <Text style={{marginRight: 10, fontSize: 20}}>Weight</Text>
                 <TextInput style={styles.input} keyboardType="number-pad" value={weight} maxLength={3} onChangeText={text => setWeight(text)} />
                 <Text style={{marginLeft: 10, fontSize: 20}}>KG</Text>
             </View>
+            {weightAuth == true && <Text style={styles.auth}>Please Key your Weight in field</Text>}
             <View style={styles.textBox}>
                 <Text style={{marginRight: 15, fontSize: 20}}>Height</Text>
                 <TextInput style={styles.input} keyboardType="number-pad" value={height} maxLength={3} onChangeText={text => setHeight(text)} />
                 <Text style={{marginLeft: 10, fontSize: 20}}>CM</Text>
             </View>
-            <View style={styles.textBox}>
-                <Text style={{marginRight: 15, fontSize: 20}}>Activity</Text>
+            {heightAuth == true &&<Text style={styles.auth}>Please Key your Height in field</Text>}
+             <View style={styles.textBox}>
+                <Text style={{marginRight: 15, fontSize: 20}}>Daily Life</Text>
                 <View style={{borderColor: 'black', borderWidth: 4}}>
                     <Picker
-                        selectedValue={selectedValue}
+                        selectedValue={dailyLife}
                         style={styles.select}
-                        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+                        onValueChange={(itemValue, itemIndex) => {
+                            screenDailyBurn(itemValue)
+                        }}
                     >
-                    <Picker.Item label="Select Exercise" value="" key="0"/>
-                    {allSelectedValue.map((item, index) => {
+                    <Picker.Item label="Select Daily Life" value="" key="0"/>
+                    {allDailyLife.map((item, index) => {
                         return <Picker.Item label={item} value={item} key={index + 1}/>
                     })}
                     </Picker>
                 </View>
             </View>
-            {selectedValue != "" &&
+            {dailyAuth == true && <Text style={styles.auth}>Please Select Your Daily Life</Text>}
+            {calories != 0 &&
             <View style={styles.guides}>
-                <Text>{selectedValue}</Text>
+                <Text>Recommended Daily Intake Result</Text>
+                <Text>{calories} KCAL</Text>
             </View>
             }
         </View>
@@ -99,7 +154,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'black'
     },
     select: {
-        width: 150,
+        width: 200,
         height: 45,
         borderWidth: 4,
         borderColor: 'black'
@@ -115,5 +170,9 @@ const styles = StyleSheet.create({
       alignSelf: 'center',
       flexDirection: 'column',
       justifyContent: 'center'
+    },
+    auth: {
+        color: 'red',
+        marginLeft: "5%"
     }
   });
