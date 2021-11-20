@@ -12,7 +12,7 @@ router.post("/mode", async (req,res) => {
             list: req.body.list,
             time: req.body.time,
             workout: req.body.workout,
-        })
+        });
 
         const New_Mode = await newMode.save();
         res.status(200).json(New_Mode);
