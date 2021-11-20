@@ -23,6 +23,7 @@ router.post("/mode", async (req,res) => {
     }
 });
 
+//Get all mode
 router.get("/mode", async (req, res) => {
     try{
         const allMode = await Mode.find();
@@ -31,6 +32,19 @@ router.get("/mode", async (req, res) => {
     }catch(err){
         console.log(err);
         res.status(500).json(err);
+    }
+});
+
+//Get mode by id
+router.get("/mode/:id", async (req, res) => {
+    try {
+        
+        const mode = await Mode.findById(req.params.id);
+        res.status(200).json(mode);
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json(error);
     }
 });
 
