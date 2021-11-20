@@ -8,6 +8,7 @@ var cors = require('cors')
 // import Route
 const Register = require("./routes/register");
 const login = require("./routes/login");
+const modeRoute = require("./routes/mode");
 
 app.use(cors())
 // Statics
@@ -39,6 +40,7 @@ app.use(morgan("common"));
 
 app.use(Register.router);
 app.use(login.router);
+app.use("/api", modeRoute);
 
 
 app.listen(8888,() => {
