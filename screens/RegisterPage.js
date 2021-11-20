@@ -1,12 +1,13 @@
-import React, { useState }from 'react';
+import React from 'react';
 import { Text, TouchableOpacity, TextInput, View, StyleSheet, Image } from 'react-native';
 import { Formik, ErrorMessage } from 'formik';
-import { Avatar } from 'react-native-elements';
-import { Ionicons } from '@expo/vector-icons';
 import * as Yup from "yup";
-import axios from "axios";
 
 const SignupSchema = Yup.object().shape({
+    name: Yup.string()
+        .min(8, 'Too Short!')
+        .max(88, 'Too Long!')
+        .required('Username is Required'),
     email: Yup.string()
         .email('Invalid email')
         .required('Email is Required'),
@@ -20,72 +21,22 @@ const SignupSchema = Yup.object().shape({
     passwordConfirm: Yup.string()
         .oneOf([Yup.ref('password'), null], 'Passwords must match')
         .required('Password Confirm is Required'),
-    weight: Yup.number('only numbers')
-        .required('Weight is Required'),
-    height: Yup.number('only numbers')
-        .required('Height is Required'),
-    age: Yup.number('only numbers')
-        .required('Age is Required'),
-    gender: Yup.number()
-        .required("Choose your gender")
-    
 });
- 
-const registerPage = (props) => {
 
-    const [Gender, SetGender] = useState(0);
-    const [Error, setError] = useState('');
-    const [manIcon, setManIcon] = useState("man-outline");
-    const [womanIcon, setWomanIcon] = useState("woman-outline");
+const initialValues = {
+    name: '',
+    email: '',
+    password: '',
+    passwordConfirm: ''
+}
  
-    const initialValues = {
-        email: '',
-        password: '',
-        passwordConfirm: '',
-        // profilePicture: '',
-        weight: '',
-        height: '',
-        age: '',
-        gender: Gender
-    }
-
-    function selectSex(select) {
-        if(select === "man"){
-            SetGender(1);
-            setManIcon("man");
-            setWomanIcon("woman-outline");
-        }
-        else if(select === "woman"){
-            SetGender(2);
-            setWomanIcon("woman");
-            setManIcon("man-outline");
-        }
-    }
-    
+const registerPage = () => {
     return(
         <Formik
-            enableReinitialize={true}
             initialValues={initialValues}
             validationSchema={SignupSchema}
             onSubmit={(values, {resetForm}) => {
                 // do something
-                axios.post("http://localhost:8888/register", {
-                    email: values.email,
-                    password: values.password,
-                    // profilePicture: values.profilePicture,
-                    weight: values.weight,
-                    height: values.height,
-                    age: values.age,
-                    gender: values.gender
-                })
-                .then((response) => {
-                    props.navigation.navigate('login')
-                    console.log(response)
-                })
-                .catch((err) => {
-                    setError('Email นี้ถูกใช้งานแล้ว')
-                    console.log(err);
-                });
                 console.log(values)
                 resetForm({values: initialValues})
             }}
@@ -93,67 +44,18 @@ const registerPage = (props) => {
         {({ handleChange, handleBlur, handleSubmit, values }) => (
             <View style={styles.container}>
 
-                <View style={{flexDirection: 'row'}}>
-                    <Image style={styles.logo} source={require('../assets/picture/logo.png')} />
-                    <Text style={styles.textHeader}>Register</Text>
-                </View>
+                <Image style={styles.logo} source={require('../assets/picture/logo.png')} />
 
                 <View style={styles.form}>
-
-                    {/* <Avatar
-                        activeOpacity={0.2}
-                        avatarStyle={{}}
-                        containerStyle={{ backgroundColor: "#BDBDBD" }}
-                        icon={{}}
-                        iconStyle={{}}
-                        imageProps={{}}
-                        onLongPress={() => alert("onLongPress")}
-                        onPress={() => alert("onPress")}
-                        overlayContainerStyle={{}}
-                        placeholderStyle={{}}
-                        rounded
-                        size="medium"
-                        source={{ uri: "" }}
-                        title="P"
-                        titleStyle={{}}
-                    /> */}
-                    
-                    <Text style={{color: '#900', fontSize: 16, marginTop: 10}}>{Error}</Text>
-                    <View style={{flexDirection: 'row'}}>
-                        <Text style={styles.textField}>Gender :</Text>
-                        <Ionicons style={{marginTop: 10}} name={manIcon} size={30} color="#000" 
-                            onPress= {() => {selectSex("man")}}
-                        />
-                        <Ionicons style={{marginTop: 10}} name={womanIcon} size={30} color="#000" 
-                            onPress= {() => {selectSex("woman")}}
-                        />
-                    </View>
-                    <Text style={styles.errorMessage}><ErrorMessage name="gender" /></Text>
-
-                    <Text style={styles.textField}>Weight</Text>
+                    <Text style={styles.textHeader}>Register</Text>
+                    <Text style={styles.textField}>Username</Text>
                     <TextInput style={styles.textInput}
-                        onChangeText={handleChange('weight')}
-                        onBlur={handleBlur('weight')}
-                        value={values.weight}
+                        onChangeText={handleChange('name')}
+                        onBlur={handleBlur('name')}
+                        value={values.name}
                     />
-                    <Text style={styles.errorMessage}><ErrorMessage name="weight" /></Text>
+                    <Text style={styles.errorMessage}><ErrorMessage name="name" /></Text>
 
-                    <Text style={styles.textField}>Height</Text>
-                    <TextInput style={styles.textInput}
-                        onChangeText={handleChange('height')}
-                        onBlur={handleBlur('height')}
-                        value={values.height}
-                    />
-                    <Text style={styles.errorMessage}><ErrorMessage name="height" /></Text>
-
-                    <Text style={styles.textField}>Age</Text>
-                    <TextInput style={styles.textInput}
-                        onChangeText={handleChange('age')}
-                        onBlur={handleBlur('age')}
-                        value={values.age}
-                    />
-                    <Text style={styles.errorMessage}><ErrorMessage name="age" /></Text>
-                    
                     <Text style={styles.textField}>Email</Text>
                     <TextInput style={styles.textInput}
                         onChangeText={handleChange('email')}
@@ -185,7 +87,6 @@ const registerPage = (props) => {
                     <TouchableOpacity style={styles.button} onPress={handleSubmit} >
                         <Text style={styles.textButton}>Submit</Text>
                     </TouchableOpacity>
-                    
                 </View>
             </View>
         )}
@@ -202,7 +103,7 @@ const styles = StyleSheet.create({
     },
     form:{
         width: 350,
-        height: 600,
+        height: 500,
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: '#1da2d8',
@@ -213,25 +114,20 @@ const styles = StyleSheet.create({
         color: '#CC0000'
     },
     logo: {
-        width: 100,
-        height: 100,
+        width: 120,
+        height: 120,
         marginBottom: 10,
     },
     textHeader:{
         fontWeight: "bold",
-        color: '#fff',
+        color: '#000',
         fontSize: 30,
-        marginLeft: 20,
-        marginTop: 30,
-        textShadowColor: '#000',
-        textShadowOffset: {width: 4, height: 4}
+        marginTop: -20
     },
     textField:{
         color: '#fff',
         fontSize: 20,
-        marginTop: 10,
-        textShadowColor: '#000',
-        textShadowOffset: {width: 1, height: 1}
+        marginTop: 10
     },
     textInput:{
         width:200,
