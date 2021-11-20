@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
 import { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, SafeAreaView} from 'react-native';
 import CalendarPicker from 'react-native-calendar-picker';
 import { format } from 'date-fns';
 import { Ionicons } from '@expo/vector-icons';
@@ -12,7 +12,7 @@ export default function SchedulePage({ navigation }){
   const [caloriesBurn, setCaloriesBurn] = useState(870)
 
     return(
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
           <ScrollView>
           <CalendarPicker 
           onDateChange={(date) => {
@@ -40,7 +40,7 @@ export default function SchedulePage({ navigation }){
           </View>
           }
           </ScrollView>
-        </View>
+        </SafeAreaView>
     )
 }
     

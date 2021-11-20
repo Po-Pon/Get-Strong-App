@@ -4,10 +4,10 @@ import { StyleSheet, Text, View,  TextInput, TouchableOpacity, Picker, ScrollVie
 import { Ionicons } from '@expo/vector-icons';
 
 export default function StaticADayPage(){
-    const [age, setAge] = useState("")
-    const [sex, setSex] = useState("")
-    const [weight, setWeight] = useState("")
-    const [height, setHeight] = useState("")
+    const [age, setAge] = useState("0")
+    const [sex, setSex] = useState("0")
+    const [weight, setWeight] = useState("0")
+    const [height, setHeight] = useState("0")
     const [manIcon, setManIcon] = useState("man-outline")
     const [womanIcon, setWomanIcon] = useState("woman-outline")
     const [allSelectedValue, setAllSelectedValue] = useState(["exercise 1", "exercise 2", "exercise 3", "exercise 4", "exercise 5"])
@@ -31,7 +31,7 @@ export default function StaticADayPage(){
         <View style={styles.container}>
             <View style={styles.textBox}>
                 <Text style={{marginRight: 25, fontSize: 20}}>Age</Text>
-                <TextInput style={styles.input} keyboardType="number-pad" maxLength={3} onChangeText={text => setAge(text)}/>
+                <TextInput style={styles.input} value={age} keyboardType="number-pad" maxLength={3} onChangeText={(text) => {setAge(text)}}/>
                 <TouchableOpacity onPress={() => {selectSex("man")}} style={{marginLeft: 50, marginRight: 2}}>
                     <Ionicons name={manIcon} size={50} color="black" />
                 </TouchableOpacity>
@@ -43,12 +43,12 @@ export default function StaticADayPage(){
             </View>
             <View style={styles.textBox}>
                 <Text style={{marginRight: 10, fontSize: 20}}>Weight</Text>
-                <TextInput style={styles.input} keyboardType="number-pad" maxLength={3} onChangeText={text => setWeight(text)} />
+                <TextInput style={styles.input} keyboardType="number-pad" value={weight} maxLength={3} onChangeText={text => setWeight(text)} />
                 <Text style={{marginLeft: 10, fontSize: 20}}>KG</Text>
             </View>
             <View style={styles.textBox}>
                 <Text style={{marginRight: 15, fontSize: 20}}>Height</Text>
-                <TextInput style={styles.input} keyboardType="number-pad" maxLength={3} onChangeText={text => setHeight(text)} />
+                <TextInput style={styles.input} keyboardType="number-pad" value={height} maxLength={3} onChangeText={text => setHeight(text)} />
                 <Text style={{marginLeft: 10, fontSize: 20}}>CM</Text>
             </View>
             <View style={styles.textBox}>
