@@ -10,7 +10,7 @@ export default function StaticADayPage(){
     const [height, setHeight] = useState("0")
     const [manIcon, setManIcon] = useState("man-outline")
     const [womanIcon, setWomanIcon] = useState("woman-outline")
-    const [allSelectedValue, setAllSelectedValue] = useState(["exercise 1", "exercise 2", "exercise 3", "exercise 4", "exercise 5"])
+    const [allSelectedValue, setAllSelectedValue] = useState([])
     const [selectedValue, setSelectedValue] = useState("");
  
 
@@ -29,6 +29,7 @@ export default function StaticADayPage(){
 
     return(
         <View style={styles.container}>
+            <ScrollView>
             <View style={styles.textBox}>
                 <Text style={{marginRight: 25, fontSize: 20}}>Age</Text>
                 <TextInput style={styles.input} value={age} keyboardType="number-pad" maxLength={3} onChangeText={(text) => {setAge(text)}}/>
@@ -71,6 +72,7 @@ export default function StaticADayPage(){
                 <Text>{selectedValue}</Text>
             </View>
             }
+            </ScrollView>
         </View>
     )
 }
@@ -78,6 +80,7 @@ export default function StaticADayPage(){
 const styles = StyleSheet.create({
     container: {
       flex: 1,
+      flexGrow: 1,
       backgroundColor: '#fff',
       justifyContent: 'flex-start'
     },
