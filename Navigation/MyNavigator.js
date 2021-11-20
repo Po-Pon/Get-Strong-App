@@ -23,6 +23,8 @@ const Stack = createNativeStackNavigator();
 
 const Tab = createBottomTabNavigator();
 
+const Drawer = createDrawerNavigator();
+
 const DrawerMenu = createDrawerNavigator();
 
 function ScheduleProgress() {
@@ -98,6 +100,28 @@ function FirstPage() {
     </Stack.Navigator>
   );
 }
+
+function MainNavigator() {
+    return(
+      <Stack.Navigator initialRoutename="first"
+        screenOptions = {{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name="first" component={FirstPage}
+            options={{
+                headerShown: false,
+            }}
+        />
+        <Stack.Screen name="calculatePage" component={ExerciseDrawerMenu}
+            options={{
+                headerShown: false,
+            }}
+        />
+      </Stack.Navigator>
+    );
+  }
+
 
 export default function MyNavigator() {
   return (
