@@ -25,7 +25,7 @@ function ScheduleProgress(){
     return(
         <Stack.Navigator screenOptions={{headerStyle: {backgroundColor: '#ff0000',}}}>
             <Stack.Screen name="Your Schedule" component={ScheduleAndNotificationPage}></Stack.Screen>
-            <Stack.Screen name="Static Today" component={StaticADayPage}></Stack.Screen>
+            <Stack.Screen name="Static A Day" component={StaticADayPage}></Stack.Screen>
         </Stack.Navigator>
     )
 }

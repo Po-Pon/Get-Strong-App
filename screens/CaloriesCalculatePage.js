@@ -11,7 +11,7 @@ export default function StaticADayPage(){
     const [manIcon, setManIcon] = useState("man-outline")
     const [womanIcon, setWomanIcon] = useState("woman-outline")
     const [allSelectedValue, setAllSelectedValue] = useState(["exercise 1", "exercise 2", "exercise 3", "exercise 4", "exercise 5"])
-    const [selectedValue, setSelectedValue] = useState();
+    const [selectedValue, setSelectedValue] = useState("");
  
 
     const selectSex = (select) => {
@@ -59,12 +59,18 @@ export default function StaticADayPage(){
                         style={styles.select}
                         onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
                     >
+                    <Picker.Item label="Select Exercise" value="" key="0"/>
                     {allSelectedValue.map((item, index) => {
-                        return <Picker.Item label={item} value={item} key={index}/>
+                        return <Picker.Item label={item} value={item} key={index + 1}/>
                     })}
                     </Picker>
                 </View>
             </View>
+            {selectedValue != "" &&
+            <View style={styles.guides}>
+                <Text>{selectedValue}</Text>
+            </View>
+            }
         </View>
     )
 }
@@ -95,8 +101,19 @@ const styles = StyleSheet.create({
     select: {
         width: 150,
         height: 45,
-        
         borderWidth: 4,
         borderColor: 'black'
+    },
+    guides: {
+      marginTop: 50,
+      borderColor: 'black',
+      borderTopWidth: 4,
+      borderBottomWidth: 4,
+      width: '90%',
+      height: '20%',
+      alignItems: 'center',
+      alignSelf: 'center',
+      flexDirection: 'column',
+      justifyContent: 'center'
     }
   });

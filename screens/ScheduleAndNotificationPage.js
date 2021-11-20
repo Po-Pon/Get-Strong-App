@@ -7,6 +7,8 @@ import { format } from 'date-fns';
 
 export default function SchedulePage({ navigation }){
   const [selectDate, setSelectDate] = useState("")
+  const [caloriesNeed, setCaloriesNeed] = useState(870)
+  const [caloriesBurn, setCaloriesBurn] = useState(960)
 
     return(
         <View>
@@ -24,7 +26,12 @@ export default function SchedulePage({ navigation }){
             <Text style={styles.textSchedule}>Your Schedules</Text>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => {navigation.navigate('Static Today')}}
+              onPress={() => {navigation.navigate('Static A Day', 
+              {
+                day: selectDate,
+                need: caloriesNeed,
+                burn: caloriesBurn
+              })}}
             >
             <Text>Watch Your Static</Text>
             </TouchableOpacity>

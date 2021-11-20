@@ -1,27 +1,63 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { processColor, StyleSheet, Text, View } from 'react-native';
 import moment from 'moment';
 
-export default function StaticADayPage(props){
+export default function StaticADayPage({route}){
     const [timeNow, setTimeNow] = useState(new moment())
-    const [calories, setCalories] = useState(0)
-    const [dayProgress, setDayProgress] = useState(0.1)
+    const progress = route.params.burn/route.params.need
 
     const refreshClock = () => {
         setTimeNow(new moment());
       }
     
+    const checkDate = () => {
+      if(timeNow.format('MM/D/YYYY') === moment(route.params.day).format('MM/D/YYYY')){
+        return(
+          <View style={styles.time}>
+            <Text style={styles.textTime}>{timeNow.format('LT')}</Text>
+            <Text style={styles.textDate}>{timeNow.format('MM/D/YYYY')}</Text>
+          </View>
+        )
+      }
+      else{
+        return (
+          <View style={styles.time}>
+            <Text style={{fontSize: 48}}>{moment(route.params.day).format('MM/D/YYYY')}</Text>
+          </View>
+        )
+      }
+    }
+    
+    const progressColor = () => {
+      if(progress >= 1){
+        return 'chartreuse'
+      }
+      else{
+        return 'red'
+      }
+    }
+
+    const progressBar = () => {
+      if(progress >= 1){
+        return "100%"
+      }
+      else{
+        return progress*100 + "%"
+      }
+    }
+    
     const progressValue = {
       borderColor: 'red',
       borderWidth: 1,
       height: '100%',
-      backgroundColor: 'red',
-      width: dayProgress*100 + "%",
+      backgroundColor: progressColor(),
+      width: progressBar(),
       alignSelf: 'flex-start'
     }
 
       useEffect(() => {
+        console.log(route.params.day)
         const timerId = setInterval(refreshClock, 1000);
         return function cleanup() {
             clearInterval(timerId);
@@ -30,20 +66,16 @@ export default function StaticADayPage(props){
 
     return (
       <View style={styles.container}>
-        <View style={styles.time}>
-            <Text style={styles.textTime}>{timeNow.format('LT')}</Text>
-            <Text style={styles.textDate}>{timeNow.format('MM/D/YYYY')}</Text>
-        </View>
-        <View style={styles.calender}>
-
-        </View>
+        {checkDate()}
         <View style={styles.progress}>
-            <Text style={{top: 5}}>เป้าหมายของวันนี้</Text>
+            <Text style={{top: 5}}>GOAL Progress</Text>
             <View style={styles.progressBar}>
               <View style={progressValue}/>
             </View>
         </View> 
-        <View style={styles.compare}></View>
+        <View style={styles.caloriesResult}>
+            <Text style={{fontSize: 24}}>Your caloriesBurn is : {route.params.burn} Kcal</Text>
+        </View>
       </View>
     )
 
@@ -69,8 +101,6 @@ const styles = StyleSheet.create({
     },
     textDate: {
       fontSize: 24,
-      alignSelf: 'flex-end',
-      top: 30
     },
     calender: {
       marginTop: 20,
@@ -89,7 +119,7 @@ const styles = StyleSheet.create({
       alignItems: 'center'
     },
     progressBar: {
-      marginTop: 5,
+      marginTop: 10,
       borderColor: 'black',
       borderWidth: 4,
       width: '90%',
@@ -104,12 +134,14 @@ const styles = StyleSheet.create({
       width: '100%',
       alignSelf: 'flex-start'
     },
-    compare: {
+    caloriesResult: {
       marginTop: 20,
       borderColor: 'black',
       borderWidth: 4,
       width: '90%',
       height: '20%',
-      alignItems: 'center'
+      alignItems: 'center',
+      flexDirection: 'column',
+      justifyContent: 'center'
     }
   });
