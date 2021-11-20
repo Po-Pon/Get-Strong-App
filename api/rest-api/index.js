@@ -4,8 +4,17 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
-const userRoute = require("./routes/users");
-const authRoute = require("./routes/auth");
+var cors = require('cors')
+// import Route
+const Register = require("./routes/register");
+const login = require("./routes/login");
+
+app.use(cors())
+// Statics
+app.use(express.static('static'))
+
+app.use(express.json()) // for parsing application/json
+app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 dotenv.config();
 
@@ -28,8 +37,8 @@ app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
 
-app.use("/api/users", userRoute);
-app.use("/api/auth", authRoute);
+app.use(Register.router);
+app.use(login.router);
 
 
 app.listen(8888,() => {
