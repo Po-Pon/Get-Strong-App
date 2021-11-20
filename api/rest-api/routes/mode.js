@@ -23,4 +23,15 @@ router.post("/mode", async (req,res) => {
     }
 });
 
+router.get("/mode", async (req, res) => {
+    try{
+        const allMode = await Mode.find();
+        res.status(200).json(allMode);
+
+    }catch(err){
+        console.log(err);
+        res.status(500).json(err);
+    }
+});
+
 module.exports = router;
