@@ -1,17 +1,19 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
 import { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView} from 'react-native';
 import CalendarPicker from 'react-native-calendar-picker';
 import { format } from 'date-fns';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function SchedulePage({ navigation }){
   const [selectDate, setSelectDate] = useState("")
   const [caloriesNeed, setCaloriesNeed] = useState(870)
-  const [caloriesBurn, setCaloriesBurn] = useState(960)
+  const [caloriesBurn, setCaloriesBurn] = useState(870)
 
     return(
-        <View>
+        <View style={styles.container}>
+          <ScrollView>
           <CalendarPicker 
           onDateChange={(date) => {
             let newDate = date.toDate()
@@ -37,6 +39,7 @@ export default function SchedulePage({ navigation }){
             </TouchableOpacity>
           </View>
           }
+          </ScrollView>
         </View>
     )
 }
@@ -57,7 +60,8 @@ export default function SchedulePage({ navigation }){
       },
       textDate: {
         textAlign: 'center', 
-        fontSize: 24
+        fontSize: 24,
+        backgroundColor: "#ff0e00"
       },
       textSchedule: {
         textAlign: 'left', 
