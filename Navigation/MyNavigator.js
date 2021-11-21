@@ -13,6 +13,7 @@ import ScheduleAndNotificationPage from '../screens/ScheduleAndNotificationPage'
 import firstPage from '../screens/FirstPage';
 import LoginPage from '../screens/LoginPage';
 import RegisterPage from '../screens/RegisterPage';
+import CaloriesResult  from '../screens/CaloriesResult'
 
 
 const Stack = createNativeStackNavigator();
@@ -23,17 +24,28 @@ const DrawerMenu = createDrawerNavigator();
 
 function ScheduleProgress(){
     return(
-        <Stack.Navigator screenOptions={{headerStyle: {backgroundColor: '#ff0000',}}}>
+        <Stack.Navigator screenOptions={{
+            headerStyle: {backgroundColor: '#064273'}, 
+            headerTitleStyle: {color : 'white'}}}>
             <Stack.Screen name="Your Schedule" component={ScheduleAndNotificationPage}></Stack.Screen>
             <Stack.Screen name="Static A Day" component={StaticADayPage}></Stack.Screen>
         </Stack.Navigator>
     )
 }
 
+function CaloriesCal(){
+    return(
+        <Stack.Navigator screenOptions={{headerStyle: {backgroundColor: '#064273'}, headerTitleStyle: {color : 'white'}}}>
+            <Stack.Screen name="Calorie Calculate" component={CaloriesCalculatePage}></Stack.Screen>
+            <Stack.Screen name="Result" component={CaloriesResult} options={{headerShown: false}}></Stack.Screen>
+        </Stack.Navigator>
+    )
+}
+
 function ExerciseDrawerMenu(){
     return(
-        <DrawerMenu.Navigator screenOptions={{headerStyle: {backgroundColor: '#ff0000',}}}>
-            <DrawerMenu.Screen name="Calorie Calculator" component={CaloriesCalculatePage}></DrawerMenu.Screen>
+        <DrawerMenu.Navigator screenOptions={{headerStyle: {backgroundColor: '#064273'}, headerTitleStyle: {color : 'white'}}}>
+            <DrawerMenu.Screen name="Calorie Calculator" component={CaloriesCal} options={{headerShown: false}}></DrawerMenu.Screen>
             <DrawerMenu.Screen name="Your Schedule" component={ScheduleProgress} options={{headerShown: false}}></DrawerMenu.Screen>
         </DrawerMenu.Navigator>
     )
