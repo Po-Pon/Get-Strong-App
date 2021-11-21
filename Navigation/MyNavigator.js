@@ -27,7 +27,7 @@ function ScheduleProgress(){
         <Stack.Navigator screenOptions={{
             headerStyle: {backgroundColor: '#064273'}, 
             headerTitleStyle: {color : 'white'}}}>
-            <Stack.Screen name="Your Schedule" component={ScheduleAndNotificationPage}></Stack.Screen>
+            <Stack.Screen name="Your Schedule" component={ScheduleAndNotificationPage} options={{headerTitle: "Your Static Report"}}></Stack.Screen>
             <Stack.Screen name="Static A Day" component={StaticADayPage}></Stack.Screen>
         </Stack.Navigator>
     )
@@ -46,7 +46,7 @@ function ExerciseDrawerMenu(){
     return(
         <DrawerMenu.Navigator screenOptions={{headerStyle: {backgroundColor: '#064273'}, headerTitleStyle: {color : 'white'}}}>
             <DrawerMenu.Screen name="Calorie Calculator" component={CaloriesCal} options={{headerShown: false}}></DrawerMenu.Screen>
-            <DrawerMenu.Screen name="Your Schedule" component={ScheduleProgress} options={{headerShown: false}}></DrawerMenu.Screen>
+            <DrawerMenu.Screen name="Your Static Report" component={ScheduleProgress} options={{headerShown: false}}></DrawerMenu.Screen>
         </DrawerMenu.Navigator>
     )
 }
