@@ -8,13 +8,80 @@ import {
   TouchableOpacity,
   Picker,
   Image,
+  ImageBackground,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
-
+const exerciseModes = [
+  {
+    name: "ABS BEGINNER",
+    image:
+      "https://static.india.com/wp-content/uploads/2017/07/Abs-415x246.jpg",
+    list: [
+      {
+        name: "JUMPING JACK",
+        time: 20,
+        num: 0,
+      },
+      {
+        name: "ABDOMINAL CRUNCHES",
+        time: 0,
+        num: 16,
+      },
+      {
+        name: "RUSSIAN TWIST",
+        time: 0,
+        num: 20,
+      },
+    ],
+  },
+  {
+    name: "CHEST BEGINNER",
+    image:
+      "https://cdn.shopify.com/s/files/1/1127/3530/articles/advanced-chest-training-04.jpg?v=1478476305",
+    list: [
+      {
+        name: "JUMPING JACK",
+        time: 20,
+        num: 0,
+      },
+      {
+        name: "ABDOMINAL CRUNCHES",
+        time: 0,
+        num: 16,
+      },
+      {
+        name: "RUSSIAN TWIST",
+        time: 0,
+        num: 20,
+      },
+    ],
+  },
+  {
+    name: "LEG BEGINNER",
+    image: "https://i.ytimg.com/vi/S5kOK3bxfro/maxresdefault.jpg",
+    list: [
+      {
+        name: "JUMPING JACK",
+        time: 20,
+        num: 0,
+      },
+      {
+        name: "ABDOMINAL CRUNCHES",
+        time: 0,
+        num: 16,
+      },
+      {
+        name: "RUSSIAN TWIST",
+        time: 0,
+        num: 20,
+      },
+    ],
+  },
+];
 
 export default function ListOfExercisePage() {
   return (
@@ -31,26 +98,35 @@ export default function ListOfExercisePage() {
           >
             BEGINNER
           </Text>
-          <TouchableOpacity activeOpacity={1} style={{ marginBottom:15}}>
-            <ExerciseImage />
-          </TouchableOpacity>
-          <TouchableOpacity activeOpacity={1} style={{ marginBottom:15}}>
-            <ExerciseImage />
-          </TouchableOpacity>
+          {exerciseModes.map((exercisMode, index) => (
+            <TouchableOpacity activeOpacity={1} style={{ marginBottom: 15 }}>
+              <View key={index}>
+                <ExerciseImage
+                  name={exercisMode.name}
+                  image={exercisMode.image}
+                />
+              </View>
+            </TouchableOpacity>
+          ))}
         </View>
       </ScrollView>
     </View>
   );
 }
 
-const ExerciseImage = () => (
+const ExerciseImage = (props) => (
   <>
-    <Image
-      source={{
-        uri: "https://cdn.muscleandstrength.com/sites/default/files/field/image/workout/beginnerabs.jpg",
-      }}
-      style={{ width: "100%", height: 180, borderRadius: 15 }}
-    />
+    <View style={{borderRadius: 20 }}>
+      <ImageBackground
+        source={{
+          uri: props.image,
+        }}
+        style={{ width: "100%", height: 180}}
+        imageStyle={{ borderRadius: 20}}
+      >
+        <View style={{backgroundColor: "rgba(0, 0, 0, 0.35)", flex: 1,borderRadius: 20}}></View>
+      </ImageBackground>
+    </View>
     <View
       style={{
         position: "absolute",
@@ -64,9 +140,12 @@ const ExerciseImage = () => (
           marginBottom: 95,
           fontWeight: "bold",
           fontSize: 20,
+          textShadowColor: "rgba(0, 0, 0, 0.75)",
+          textShadowOffset: { width: -1, height: 1 },
+          textShadowRadius: 10,
         }}
       >
-        ABS BEGINNER
+        {props.name}
       </Text>
       <Icon name="dumbbell" color="#fff" size={30} />
     </View>
