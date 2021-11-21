@@ -33,6 +33,15 @@ const UserSchama = new mongoose.Schema({
         enum: [0,1,2],
         default: 0,
     },
+    statistics:{
+        type:Array,
+        date:{
+            type:Date
+        },
+        burn:{
+            type:Number
+        }
+    }
 },
 {
     timestamps: true

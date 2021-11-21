@@ -35,11 +35,11 @@ router.get("/mode", async (req, res) => {
     }
 });
 
-//Get mode by id
-router.get("/mode/:id", async (req, res) => {
+//Get mode by level
+router.get("/mode/:level", async (req, res) => {
     try {
         
-        const mode = await Mode.findById(req.params.id);
+        const mode = await Mode.find({level:req.params.level});
         res.status(200).json(mode);
         
     } catch (error) {
