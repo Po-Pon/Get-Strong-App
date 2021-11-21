@@ -13,6 +13,7 @@ import ScheduleAndNotificationPage from '../screens/ScheduleAndNotificationPage'
 import firstPage from '../screens/FirstPage';
 import LoginPage from '../screens/LoginPage';
 import RegisterPage from '../screens/RegisterPage';
+import ExerciseMode from '../screens/ExerciseMode';
 import SelectExerciseMode from '../screens/SelectExerciseModePage';
 
 // Icons
@@ -24,6 +25,40 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const DrawerMenu = createDrawerNavigator();
+
+function FirstPage() {
+    return (
+      <Stack.Navigator
+        initialRoutename="firstPage"
+        ScreenOptions={{
+          headerStyle: { backgroundColor: "gray" },
+          headerTintColor: "white",
+        }}
+      >
+        <Stack.Screen
+          name="firstPage"
+          component={firstPage}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="login"
+          component={LoginPage}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="register"
+          component={RegisterPage}
+          options={{
+            headerShown: false,
+          }}
+        />
+      </Stack.Navigator>
+    );
+  }  
 
 function ScheduleProgress() {
   return (
@@ -44,12 +79,12 @@ function ScheduleProgress() {
 
 function ExerciseDrawerMenu() {
   return (
-    <DrawerMenu.Navigator
+    <DrawerMenu.Navigator initialRouteName={SelectExerciseMode}
       screenOptions={{ headerStyle: { backgroundColor: "#3776D4"}, headerTintColor:'#fff' }}
     >
       <DrawerMenu.Screen
         name="WORKOUT"
-        component={ListOfExercisePage}
+        component={SelectExerciseMode}
         options={{ title: 'WORKOUT', color: '#fff'}}
       ></DrawerMenu.Screen>
       <DrawerMenu.Screen
@@ -65,44 +100,41 @@ function ExerciseDrawerMenu() {
   );
 }
 
-function FirstPage() {
-  return (
-    <Stack.Navigator
-      initialRoutename="firstPage"
-      ScreenOptions={{
-        headerStyle: { backgroundColor: "gray" },
-        headerTintColor: "white",
-      }}
-    >
-      <Stack.Screen
-        name="firstPage"
-        component={firstPage}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="login"
-        component={LoginPage}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="register"
-        component={RegisterPage}
-        options={{
-          headerShown: false,
-        }}
-      />
-    </Stack.Navigator>
-  );
+function MainNavigator() {
+    return(
+        <Stack.Navigator initialRoutename="first"
+            screenOptions = {{
+                headerStyle: { backgroundColor: "#3776D4"}, headerTintColor:'#fff',
+                headerShown: false,
+            }}
+            >
+            <Stack.Screen name="first" component={FirstPage}
+                options={{
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen name="FeaturePage" component={ExerciseDrawerMenu}
+                options={{
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen name="ExerciseMode" component={ExerciseMode}
+                options={
+                    ({ route }) => ({
+                        title: route.params.namepage,
+                        headerShown: true,
+                    })
+                }
+            />
+        </Stack.Navigator>
+    );
 }
+
 
 export default function MyNavigator() {
   return (
     <NavigationContainer>
-      <ExerciseDrawerMenu />
+      <MainNavigator />
     </NavigationContainer>
   );
 }

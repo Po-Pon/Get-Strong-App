@@ -33,7 +33,7 @@ const loginPage = (props) => {
                 })
                 .then((response) => {
                     console.log(response)
-                    props.navigation.navigate('calculatePage')
+                    props.navigation.navigate('FeaturePage')
                 })
                 .catch((err) => {
                     setError('Email หรือ Password ไม่ถูกต้อง กรุณาลองใหม่')
