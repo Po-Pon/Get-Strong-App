@@ -2,7 +2,7 @@ import React, { useState }from 'react';
 import { Text, TouchableOpacity, TextInput, View, StyleSheet, Image } from 'react-native';
 import { Formik, ErrorMessage } from 'formik';
 import { Avatar } from 'react-native-elements';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons,MaterialCommunityIcons,FontAwesome5 } from '@expo/vector-icons';
 import * as Yup from "yup";
 import axios from "axios";
 
@@ -33,7 +33,7 @@ const SignupSchema = Yup.object().shape({
  
 const registerPage = (props) => {
 
-    const [Gender, SetGender] = useState(0);
+    const [Gender, SetGender] = useState();
     const [Error, setError] = useState('');
     const [manIcon, setManIcon] = useState("man-outline");
     const [womanIcon, setWomanIcon] = useState("woman-outline");
@@ -131,55 +131,74 @@ const registerPage = (props) => {
                     <Text style={styles.errorMessage}><ErrorMessage name="gender" /></Text>
 
                     <Text style={styles.textField}>Weight</Text>
-                    <TextInput style={styles.textInput}
-                        onChangeText={handleChange('weight')}
-                        onBlur={handleBlur('weight')}
-                        value={values.weight}
-                    />
+                    <View style={{flexDirection: 'row', marginRight: 20}}>
+                        <MaterialCommunityIcons name='weight-kilogram' size={30} color='#fff'/>
+                        <TextInput style={styles.textInput}
+                            onChangeText={handleChange('weight')}
+                            onBlur={handleBlur('weight')}
+                            value={values.weight}
+                        />
+                    </View>
                     <Text style={styles.errorMessage}><ErrorMessage name="weight" /></Text>
 
                     <Text style={styles.textField}>Height</Text>
-                    <TextInput style={styles.textInput}
-                        onChangeText={handleChange('height')}
-                        onBlur={handleBlur('height')}
-                        value={values.height}
-                    />
+                    <View style={{flexDirection: 'row', marginRight: 20}}>
+                        <MaterialCommunityIcons name='human-male-height' size={30} color='#fff'/>
+                        <TextInput style={styles.textInput}
+                            onChangeText={handleChange('height')}
+                            onBlur={handleBlur('height')}
+                            value={values.height}
+                        />
+                    </View>
                     <Text style={styles.errorMessage}><ErrorMessage name="height" /></Text>
-
+                        
                     <Text style={styles.textField}>Age</Text>
-                    <TextInput style={styles.textInput}
-                        onChangeText={handleChange('age')}
-                        onBlur={handleBlur('age')}
-                        value={values.age}
-                    />
+                    <View style={{flexDirection: 'row', marginRight: 20}}>
+                        <FontAwesome5 name='users' size={30} color='#fff'/>
+                        <FontAwesome5 ></FontAwesome5>
+                        <TextInput style={styles.textInput}
+                            onChangeText={handleChange('age')}
+                            onBlur={handleBlur('age')}
+                            value={values.age}
+                        />
+                    </View>
                     <Text style={styles.errorMessage}><ErrorMessage name="age" /></Text>
                     
                     <Text style={styles.textField}>Email</Text>
-                    <TextInput style={styles.textInput}
-                        onChangeText={handleChange('email')}
-                        onBlur={handleBlur('email')}
-                        value={values.email}
-                    />
+                    <View style={{flexDirection: 'row', marginRight: 20}}>
+                        <MaterialCommunityIcons name='email' size={30} color='#fff'/>
+                        <TextInput style={styles.textInput}
+                            onChangeText={handleChange('email')}
+                            onBlur={handleBlur('email')}
+                            value={values.email}
+                        />
+                    </View>
                     <Text style={styles.errorMessage}><ErrorMessage name="email" /></Text>
 
                     <Text style={styles.textField}>Password</Text>
-                    <TextInput style={styles.textInput}
-                        onChangeText={handleChange('password')}
-                        onBlur={handleBlur('password')}
-                        value={values.password}
-                        secureTextEntry={true}
-                        password={true} 
-                    />
+                    <View style={{flexDirection: 'row', marginRight: 20}}>
+                        <MaterialCommunityIcons name='lock' size={30} color='#fff'/>
+                        <TextInput style={styles.textInput}
+                            onChangeText={handleChange('password')}
+                            onBlur={handleBlur('password')}
+                            value={values.password}
+                            secureTextEntry={true}
+                            password={true} 
+                        />
+                    </View>
                     <Text style={styles.errorMessage}><ErrorMessage name="password" /></Text>
 
                     <Text style={styles.textField}>Password Confirm</Text>
-                    <TextInput style={styles.textInput}
-                        onChangeText={handleChange('passwordConfirm')}
-                        onBlur={handleBlur('passwordConfirm')}
-                        value={values.passwordConfirm}
-                        secureTextEntry={true}
-                        password={true} 
-                    />
+                    <View style={{flexDirection: 'row', marginRight: 20}}>
+                        <MaterialCommunityIcons name='lock' size={30} color='#fff'/>
+                        <TextInput style={styles.textInput}
+                            onChangeText={handleChange('passwordConfirm')}
+                            onBlur={handleBlur('passwordConfirm')}
+                            value={values.passwordConfirm}
+                            secureTextEntry={true}
+                            password={true} 
+                        />
+                    </View>
                     <Text style={styles.errorMessage}><ErrorMessage name="passwordConfirm"/></Text>
 
                     <TouchableOpacity style={styles.button} onPress={handleSubmit} >

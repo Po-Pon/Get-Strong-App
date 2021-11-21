@@ -13,6 +13,7 @@ import ScheduleAndNotificationPage from '../screens/ScheduleAndNotificationPage'
 import firstPage from '../screens/FirstPage';
 import LoginPage from '../screens/LoginPage';
 import RegisterPage from '../screens/RegisterPage';
+import SelectExerciseMode from '../screens/SelectExerciseModePage';
 
 
 const Stack = createNativeStackNavigator();
@@ -26,6 +27,7 @@ const DrawerMenu = createDrawerNavigator();
 function ExerciseDrawerMenu(){
     return(
         <DrawerMenu.Navigator screenOptions={{headerStyle: {backgroundColor: '#ff0000',}}}>
+            <DrawerMenu.Screen name="SelectExerciseMode" component={SelectExerciseMode}></DrawerMenu.Screen>
             <DrawerMenu.Screen name="Static Today" component={StaticADayPage}></DrawerMenu.Screen>
             <DrawerMenu.Screen name="Calories CalCulate" component={CaloriesCalculatePage}></DrawerMenu.Screen>
             <DrawerMenu.Screen name="Schedule" component={ScheduleAndNotificationPage}></DrawerMenu.Screen>

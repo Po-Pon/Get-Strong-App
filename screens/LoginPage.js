@@ -1,6 +1,7 @@
 import React,{ useState } from "react";
 import { Text, TouchableOpacity, TextInput, View, StyleSheet, Image } from 'react-native';
 import { Formik, ErrorMessage } from 'formik';
+import { MaterialCommunityIcons} from '@expo/vector-icons';
 import * as Yup from "yup";
 import axios from "axios";
 
@@ -53,21 +54,27 @@ const loginPage = (props) => {
                 <View style={styles.form}>
 
                     <Text style={styles.textField}>Email</Text>
-                    <TextInput style={styles.textInput}
-                        onChangeText={handleChange('email')}
-                        onBlur={handleBlur('email')}
-                        value={values.email}
-                    />
+                    <View style={{flexDirection: 'row', marginRight: 20}}>
+                        <MaterialCommunityIcons name='email' size={30} color='#fff'/>
+                        <TextInput style={styles.textInput}
+                            onChangeText={handleChange('email')}
+                            onBlur={handleBlur('email')}
+                            value={values.email}
+                        />
+                    </View>
                     <Text style={styles.errorMessage}><ErrorMessage name="email" /></Text>
-    
+                    
                     <Text style={styles.textField}>Password</Text>
-                    <TextInput style={styles.textInput}
-                        onChangeText={handleChange('password')}
-                        onBlur={handleBlur('password')}
-                        value={values.password}
-                        secureTextEntry={true}
-                        password={true} 
-                    />
+                    <View style={{flexDirection: 'row', marginRight: 20}}>
+                        <MaterialCommunityIcons name='lock' size={30} color='#fff'/>
+                        <TextInput style={styles.textInput}
+                            onChangeText={handleChange('password')}
+                            onBlur={handleBlur('password')}
+                            value={values.password}
+                            secureTextEntry={true}
+                            password={true} 
+                        />
+                    </View>
                     <Text style={styles.errorMessage}><ErrorMessage name="password" /></Text>
 
                     <TouchableOpacity style={styles.button} onPress={handleSubmit}>
