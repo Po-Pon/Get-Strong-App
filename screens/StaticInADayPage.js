@@ -12,7 +12,7 @@ export default function StaticADayPage({route}){
       }
     
     const checkDate = () => {
-      if(timeNow.format('MM/D/YYYY') === moment(route.params.day).format('MM/D/YYYY')){
+      if(timeNow.format('MM/D/YYYY') === route.params.day){
         return(
           <View style={styles.time}>
             <Text style={styles.textTime}>{timeNow.format('LT')}</Text>
@@ -23,18 +23,27 @@ export default function StaticADayPage({route}){
       else{
         return (
           <View style={styles.time}>
-            <Text style={{fontSize: 48}}>{moment(route.params.day).format('MM/D/YYYY')}</Text>
+            <Text style={{fontSize: 64,}}>{route.params.day}</Text>
           </View>
         )
       }
     }
     
     const progressColor = () => {
-      if(progress >= 1){
-        return 'chartreuse'
+      if(0 <= progress && progress <= 0.25){
+        return "#FF0000"
       }
-      else{
-        return 'red'
+      else if(0.25 <= progress && progress <= 0.5){
+        return "#FFF300"
+      }
+      else if(0.5 <= progress && progress <= 0.75){
+        return "#9acd32"
+      }
+      else if(0.75 <= progress && progress <= 1){
+        return "#00FF21"
+      }
+      else if(1 <= progress){
+        return "aqua"
       }
     }
 
@@ -57,7 +66,6 @@ export default function StaticADayPage({route}){
     }
 
       useEffect(() => {
-        console.log(route.params.day)
         const timerId = setInterval(refreshClock, 1000);
         return function cleanup() {
             clearInterval(timerId);
@@ -94,7 +102,8 @@ const styles = StyleSheet.create({
       borderWidth: 4,
       width: '90%',
       height: '30%',
-      alignItems: 'center'
+      alignItems: 'center',
+      justifyContent: 'center'
     },
     textTime: {
       fontSize: 72,

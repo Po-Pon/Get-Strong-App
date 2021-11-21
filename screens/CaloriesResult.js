@@ -1,16 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, Text, View,  TextInput, TouchableOpacity, Picker, ScrollView, Image} from 'react-native';
+import { StyleSheet, Text, View,  TextInput, TouchableOpacity, Picker, ScrollView, Image, ImageBackground} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function CaloriesResult({navigation, route}){
 
     const changePic = () => {
         if(route.params.sex == "man"){
-            return <Image style={styles.img} source={require('../assets/CaloriesLevel/boyWalk.png')}></Image>
+            return <ImageBackground style={styles.img} source={require('../assets/CaloriesLevel/boyWalk.png')}></ImageBackground>
         }
         else if(route.params.sex == "woman"){
-            return <Image style={styles.img} source={require('../assets/CaloriesLevel/girlWalk.png')}></Image>
+            return <ImageBackground style={styles.img} source={require('../assets/CaloriesLevel/girlWalk.png')}></ImageBackground>
         }
     }
 
@@ -30,7 +30,8 @@ const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
         alignItems: 'center',
-        backgroundColor: '#064273'
+        backgroundColor: '#064273',
+        justifyContent: 'center'
     },
     Topic: {
         fontSize: 32,
@@ -38,8 +39,8 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     img: {
-        width: 300,
-        height: 650,
+        width: "100%",
+        height: 850,
         marginTop: 50,
         borderRadius: 10
     },
