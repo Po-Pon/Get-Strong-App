@@ -7,13 +7,13 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 
 // import screens
-import StaticADayPage from "../screens/StaticInADayPage";
-import CaloriesCalculatePage from "../screens/CaloriesCalculatePage";
-import ScheduleAndNotificationPage from "../screens/ScheduleAndNotificationPage";
-import ListOfExercisePage from "../screens/ListOfExercisePage";
-import firstPage from "../screens/FirstPage";
-import LoginPage from "../screens/LoginPage";
-import RegisterPage from "../screens/RegisterPage";
+import StaticADayPage from '../screens/StaticInADayPage';
+import CaloriesCalculatePage from '../screens/CaloriesCalculatePage';
+import ScheduleAndNotificationPage from '../screens/ScheduleAndNotificationPage';
+import firstPage from '../screens/FirstPage';
+import LoginPage from '../screens/LoginPage';
+import RegisterPage from '../screens/RegisterPage';
+import SelectExerciseMode from '../screens/SelectExerciseModePage';
 
 // Icons
 import Ionicons from "react-native-vector-icons";
