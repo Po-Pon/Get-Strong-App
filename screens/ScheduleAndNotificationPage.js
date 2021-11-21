@@ -9,18 +9,19 @@ import { Ionicons } from '@expo/vector-icons';
 import { date } from 'yup';
 
 export default function SchedulePage({ navigation }){
+  const [calorieNeed, setCalorieNeed] = useState(500)
   const [allDateSchedule, setAllDateSchedule] = useState([
-    {"date": "11/16/2021", "need": 570, "burn": 100},
-    {"date": "11/17/2021", "need": 570, "burn": 200},
-    {"date": "11/18/2021", "need": 570, "burn": 300},
-    {"date": "11/19/2021", "need": 570, "burn": 480},
-    {"date": "11/20/2021", "need": 570, "burn": 580},
+    {"date": "11/16/2021", "burn": 100},
+    {"date": "11/17/2021", "burn": 200},
+    {"date": "11/18/2021", "burn": 300},
+    {"date": "11/19/2021", "burn": 480},
+    {"date": "11/20/2021", "burn": 580},
   ])
 
   const searchCal = (date) => {
       for(let i = 0; i < allDateSchedule.length; i++){
           if(moment(allDateSchedule[i].date).format('MM/D/YYYY') == moment(date).format('MM/D/YYYY')){
-              return [allDateSchedule[i].burn, allDateSchedule[i].need]
+              return allDateSchedule[i].burn
           }
       }
   }
@@ -39,15 +40,15 @@ export default function SchedulePage({ navigation }){
           return "#00FF21"
       }
       else if(1 <= calBurn/calNeed){
-          return "aqua"
+          return "#00FFFF"
       }
   }
 
-  let customDatesStyles = [];
+  const customDatesStyles = [];
   for(let i=0; i < allDateSchedule.length; i++) {
     customDatesStyles.push({
       date: allDateSchedule[i].date,
-      style: {backgroundColor: colorLevel(allDateSchedule[i].burn, allDateSchedule[i].need)},
+      style: {backgroundColor: colorLevel(allDateSchedule[i].burn, calorieNeed)},
       textStyle: {color: 'black'},
       containerStyle: [],
       allowDisabled: true,
@@ -61,10 +62,10 @@ export default function SchedulePage({ navigation }){
             let showDate = moment(date).format('MM/D/YYYY')
             let cal = searchCal(date)
             if(typeof(cal) == "undefined"){
-            navigation.navigate('Static A Day', 
+            navigation.navigate('Static A Day',
               {
                 day: showDate,
-                need: 1,
+                need: calorieNeed,
                 burn: 0,
                 ex: false
               })
@@ -73,8 +74,8 @@ export default function SchedulePage({ navigation }){
               navigation.navigate('Static A Day', 
               {
                 day: showDate,
-                need: cal[1],
-                burn: cal[0],
+                need: calorieNeed,
+                burn: cal,
                 ex: true
               })
             }
@@ -84,6 +85,26 @@ export default function SchedulePage({ navigation }){
           selectedDayStyle={{backgroundColor: 'grey'}}
           textStyle={{color: "#FFFFFF"}}
           ></CalendarPicker>
+        <View style={styles.guide}>
+            <View style={{width: 20, height: 20, backgroundColor: "#FF0000", marginRight: 20, borderRadius: 50}}></View>
+            <Text style={{color: "white"}}>ออกกำลังกายเผาผลาญแคลลอรีได้ 1 - 25% ของเป้าหมาย</Text>
+        </View>
+        <View style={styles.guide}>
+            <View style={{width: 20, height: 20, backgroundColor: "#FFF300", marginRight: 20, borderRadius: 50}}></View>
+            <Text style={{color: "white"}}>ออกกำลังกายเผาผลาญแคลลอรีได้ 26 - 50% ของเป้าหมาย</Text>
+        </View>
+        <View style={styles.guide}>
+            <View style={{width: 20, height: 20, backgroundColor: "#9acd32", marginRight: 20, borderRadius: 50}}></View>
+            <Text style={{color: "white"}}>ออกกำลังกายเผาผลาญแคลลอรีได้ 51 - 75% ของเป้าหมาย</Text>
+        </View>
+        <View style={styles.guide}>
+            <View style={{width: 20, height: 20, backgroundColor: "#00FF21", marginRight: 20, borderRadius: 50}}></View>
+            <Text style={{color: "white"}}>ออกกำลังกายเผาผลาญแคลลอรีได้ 76 - 100% ของเป้าหมาย</Text>
+        </View>
+        <View style={styles.guide}>
+            <View style={{width: 20, height: 20, backgroundColor: "#00FFFF", marginRight: 20, borderRadius: 50}}></View>
+            <Text style={{color: "white"}}>ออกกำลังกายเผาผลาญแคลลอรีได้เกินกว่าเป้าหมาย</Text>
+        </View>
         </View>
     )
 }
@@ -116,5 +137,11 @@ export default function SchedulePage({ navigation }){
         alignItems: "center",
         backgroundColor: "#ff0e00",
         padding: 10
+      },
+      guide: {
+        marginTop: 20,
+        flexDirection: "row",
+        alignSelf: 'flex-start',
+        marginLeft: "3%"
       }
     });

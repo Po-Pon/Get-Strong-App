@@ -168,18 +168,6 @@ const styles = StyleSheet.create({
         borderWidth: 4,
         backgroundColor: 'white',
     },
-    guides: {
-      marginTop: 50,
-      borderColor: 'black',
-      backgroundColor: 'white',
-      borderWidth: 4,
-      width: '90%',
-      height: '20%',
-      alignItems: 'center',
-      alignSelf: 'center',
-      flexDirection: 'column',
-      justifyContent: 'center'
-    },
     auth: {
         color: 'red',
         marginLeft: "5%"

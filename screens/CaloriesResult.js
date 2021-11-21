@@ -39,13 +39,12 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     img: {
-        width: "100%",
-        height: 850,
+        width: 300,
+        height: 650,
         marginTop: 50,
         borderRadius: 10
     },
     confirmBtn: {
-        backgroundColor: 'red',
         marginTop: 30,
         marginBottom: 30,
         width: 300,
