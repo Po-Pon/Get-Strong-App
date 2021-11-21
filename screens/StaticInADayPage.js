@@ -76,9 +76,8 @@ export default function StaticADayPage({route}){
         <View style={styles.caloriesResult}>
             <Text style={{fontSize: 24}}>Your caloriesBurn is : {route.params.burn} Kcal</Text>
         </View>
-      </View>
-    )
-
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({

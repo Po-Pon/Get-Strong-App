@@ -5,10 +5,12 @@ const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
 var cors = require('cors')
+
 // import Route
 const Register = require("./routes/register");
 const login = require("./routes/login");
 const modeRoute = require("./routes/mode");
+const exerciseRoute = require("./routes/exercise");
 
 app.use(cors())
 // Statics
@@ -41,6 +43,7 @@ app.use(morgan("common"));
 app.use(Register.router);
 app.use(login.router);
 app.use("/api", modeRoute);
+app.use("/api", exerciseRoute);
 
 
 app.listen(8888,() => {
