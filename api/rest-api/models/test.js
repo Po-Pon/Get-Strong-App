@@ -7,6 +7,9 @@ const testSchema = new mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
+    },
+    list:{
+        type:Array
     }
 },
 {

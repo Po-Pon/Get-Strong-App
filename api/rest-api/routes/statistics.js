@@ -16,4 +16,24 @@ router.get("/:id", async (req, res) => {
     }
 });
 
+// Update statistics user
+router.put("/:id", async (req, res) => {
+  try {
+    
+    const pon = await User.updateOne(
+      { _id : req.params.id},
+      { $push: {"statistics": {
+          date: new Date,
+          burn: req.body.burn
+      }}
+    }
+  );
+
+    res.status(200).json(pon);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+});
+
 module.exports = router;

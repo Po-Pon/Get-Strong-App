@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const Mode = require("../models/Mode");
+const Exercise = require("../models/Exercise");
 
 
 router.post("/mode", async (req,res) => {
@@ -45,6 +46,18 @@ router.get("/mode/:level", async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(500).json(error);
+    }
+});
+
+//Get all exercise
+router.get("/exercise", async (req, res) => {
+    try {
+        const exercise = await Exercise.find();
+        
+        res.status(200).json(exercise);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({"message": error});
     }
 });
 
