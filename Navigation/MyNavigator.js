@@ -15,6 +15,8 @@ import LoginPage from '../screens/LoginPage';
 import RegisterPage from '../screens/RegisterPage';
 import ExerciseMode from '../screens/ExerciseMode';
 import SelectExerciseMode from '../screens/SelectExerciseModePage';
+import listOfExercisePage from "../screens/ListOfExercisePage";
+import ExercisePage from '../screens/ExercisePage';
 
 // Icons
 import Ionicons from "react-native-vector-icons";
@@ -102,17 +104,18 @@ function ExerciseDrawerMenu() {
 
 function MainNavigator() {
     return(
-        <Stack.Navigator initialRoutename="first"
+        <Stack.Navigator initialRoutename="FeaturePage"
             screenOptions = {{
-                headerStyle: { backgroundColor: "#3776D4"}, headerTintColor:'#fff',
+                headerStyle: { backgroundColor: "#3776D4"}, 
+                headerTintColor:'#fff',
                 headerShown: false,
             }}
             >
-            <Stack.Screen name="first" component={FirstPage}
+            {/* <Stack.Screen name="first" component={FirstPage}
                 options={{
                     headerShown: false,
                 }}
-            />
+            /> */}
             <Stack.Screen name="FeaturePage" component={ExerciseDrawerMenu}
                 options={{
                     headerShown: false,
@@ -122,6 +125,21 @@ function MainNavigator() {
                 options={
                     ({ route }) => ({
                         title: route.params.namepage,
+                        headerShown: true,
+                    })
+                }
+            />
+            <Stack.Screen name="listOfExercisePage" component={listOfExercisePage}
+               options={
+                    ({ route }) => ({
+                        title: route.params.namepage,
+                        headerShown: true,
+                    })
+                }
+            />
+            <Stack.Screen name="ExercisePage" component={ExercisePage}
+               options={
+                    ({ route }) => ({
                         headerShown: true,
                     })
                 }

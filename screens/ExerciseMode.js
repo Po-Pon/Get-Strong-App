@@ -15,6 +15,33 @@ import { ScrollView } from "react-native-gesture-handler";
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
+const Dumbbell = (props) =>{
+  if(props.level == 1){
+    return(
+      <View>
+        <Icon name="dumbbell" color="#fff" size={30} />
+      </View>
+    );
+  }
+  else if(props.level == 2){
+    return(
+      <View style={{flexDirection: 'row'}}>
+        <Icon name="dumbbell" color="#fff" size={30} />
+        <Icon name="dumbbell" color="#fff" size={30} />
+      </View>
+    );
+  }
+  else if(props.level == 3){
+    return(
+      <View style={{flexDirection: 'row'}}>
+        <Icon name="dumbbell" color="#fff" size={30} />
+        <Icon name="dumbbell" color="#fff" size={30} />
+        <Icon name="dumbbell" color="#fff" size={30} />
+      </View>
+    );
+  }
+}
+
 const ExerciseImage = (props) => (
   <>
     <View style={{borderRadius: 20 }}>
@@ -48,7 +75,7 @@ const ExerciseImage = (props) => (
       >
         {props.name}
       </Text>
-      <Icon name="dumbbell" color="#fff" size={30} />
+      <Dumbbell level={props.level}/>
     </View>
   </>
 );
@@ -56,6 +83,11 @@ const ExerciseImage = (props) => (
 const ExerciseMode = (props) => {
 
   const exerciseModes = props.route.params.data;
+  console.log(exerciseModes)
+
+  const onPress = (index) => {
+    props.navigation.navigate('listOfExercisePage', {data: exerciseModes[index].list, namepage: exerciseModes[index].name})
+  }
 
   return (
     <View style={styles.container}>
@@ -71,12 +103,15 @@ const ExerciseMode = (props) => {
           >
             BEGINNER
           </Text> */}
-          {exerciseModes.map((exercisMode, index) => (
-            <TouchableOpacity activeOpacity={1} style={{ marginBottom: 15 }}>
+          {exerciseModes.map((exerciseMode, index) => (
+            <TouchableOpacity activeOpacity={1} style={{ marginBottom: 15 }}
+              onPress={() => {onPress(index)}}
+            >
               <View key={index}>
                 <ExerciseImage
-                  name={exercisMode.name}
-                  image={exercisMode.image}
+                  level={exerciseMode.level}
+                  name={exerciseMode.name}
+                  image={exerciseMode.image}
                 />
               </View>
             </TouchableOpacity>
