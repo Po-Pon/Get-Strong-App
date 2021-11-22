@@ -22,7 +22,7 @@ router.post("/register", async (req,res) =>{
                 weight: req.body.weight,
                 height: req.body.height,
                 age: req.body.age,
-                gender: req.body.gender
+                gender: req.body.gender,
             });
 
             // save user and respond
