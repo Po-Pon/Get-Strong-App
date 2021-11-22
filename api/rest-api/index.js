@@ -13,7 +13,7 @@ const modeRoute = require("./routes/mode");
 const exerciseRoute = require("./routes/exercise");
 const authRoute = require("./routes/auth");
 
-const testRoute = require("./routes/statistics")
+const statisticsRoute = require("./routes/statistics")
 
 app.use(cors())
 // Statics
@@ -47,7 +47,7 @@ app.use(Register.router);
 app.use(login.router);
 app.use("/api", modeRoute);
 app.use("/api", exerciseRoute);
-app.use("/api", testRoute);
+app.use("/api", statisticsRoute);
 app.use("/api/users", authRoute);
 
 

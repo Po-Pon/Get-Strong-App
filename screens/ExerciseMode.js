@@ -73,7 +73,7 @@ const ExerciseMode = (props) => {
           </Text> */}
           {exerciseModes.map((exercisMode, index) => (
             <TouchableOpacity activeOpacity={1} style={{ marginBottom: 15 }}>
-              <View key={index}>
+              <View>
                 <ExerciseImage
                   name={exercisMode.name}
                   image={exercisMode.image}

@@ -30,11 +30,13 @@ router.put("/:id", async (req, res) => {
 //get a user
 router.get("/:id", async (req, res) => {
     try{
-        const user = await User.findById(req.params.id);
-        const {password, statistics, ...other} = user._doc
-        
-        res.status(200).json(statistics);
+        const user = await User.find({statistics:[{date:"2021-11-22T14:06:55.527+00:00"}]});
+        // const {statistics,age, ...other} = user._doc;
+
+
+        res.status(200).json(user);
     } catch (err) {
+        console.log(err);
         res.status(500).json(err);
     }
 });

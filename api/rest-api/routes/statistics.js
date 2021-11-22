@@ -8,23 +8,9 @@ const User = require("../models/User");
 router.get("/:id", async (req, res) => {
     try{
         const user = await User.findById(req.params.id);
-        const {} = user._doc;
+        const {statistics, ...other} = user._doc;
         
-        const New_test = await test.aggregate([
-            {
-              '$project': {
-                'date': {
-                  '$dateToString': {
-                    'format': '%Y-%m-%d', 
-                    'date': '$date'
-                  }
-                }
-              }
-            }
-          ]);
-        
-        res.status(200).json(New_test);
-        
+        res.status(200).json(statistics);
     }catch(err) {
         console.log(err)
     }
