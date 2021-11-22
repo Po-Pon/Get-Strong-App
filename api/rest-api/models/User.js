@@ -36,7 +36,7 @@ const UserSchama = new mongoose.Schema({
     statistics:{
         type:Array,
         date:{
-            type:Date
+            type:Date,
         },
         burn:{
             type:Number
