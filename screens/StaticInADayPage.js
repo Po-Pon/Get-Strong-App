@@ -19,14 +19,14 @@ export default function StaticADayPage({navigation, route}){
         return(
           <View style={styles.time}>
             <Text style={styles.textTime}>{timeNow.format('LT')}</Text>
-            <Text style={styles.textDate}>{timeNow.format('MM/D/YYYY')}</Text>
+            <Text style={styles.textDate}>{timeNow.format('Do MMMM YYYY')}</Text>
           </View>
         )
       }
       else{
         return (
           <View style={styles.time}>
-            <Text style={{fontSize: 64,}}>{route.params.day}</Text>
+            <Text style={{fontSize: 24,}}>{moment(route.params.day).format('Do MMMM YYYY')}</Text>
           </View>
         )
       }
