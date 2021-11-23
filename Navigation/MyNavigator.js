@@ -63,22 +63,22 @@ function FirstPage() {
     );
   }  
 
-function ScheduleProgress() {
-  return (
-    <Stack.Navigator
-      screenOptions={{ headerStyle: { backgroundColor: "#ff0000" } }}
-    >
-      <Stack.Screen
-        name="Your Schedule"
-        component={ScheduleAndNotificationPage}
-      ></Stack.Screen>
-      <Stack.Screen
-        name="Static Today"
-        component={StaticADayPage}
-      ></Stack.Screen>
-    </Stack.Navigator>
-  );
-}
+// function ScheduleProgress() {
+//   return (
+//     <Stack.Navigator
+//       screenOptions={{ headerStyle: { backgroundColor: "#ff0000" } }}
+//     >
+//       <Stack.Screen
+//         name="Your Schedule"
+//         component={ScheduleAndNotificationPage}
+//       ></Stack.Screen>
+//       <Stack.Screen
+//         name="Static Today"
+//         component={StaticADayPage}
+//       ></Stack.Screen>
+//     </Stack.Navigator>
+//   );
+// }
 
 function ExerciseDrawerMenu({route}) {
   return (
@@ -93,15 +93,15 @@ function ExerciseDrawerMenu({route}) {
       ></DrawerMenu.Screen>
       <DrawerMenu.Screen
         name="Calorie Calculator"
-        component={CaloriesCalculatePage}
+        component={CaloriesCal}
       ></DrawerMenu.Screen>
       <DrawerMenu.Screen
         name="Your Schedule"
         component={ScheduleProgress}
-        options={{ headerShown: false }}
       ></DrawerMenu.Screen>
     </DrawerMenu.Navigator>
   );
+}
 function ScheduleProgress(){
     return(
         <Stack.Navigator screenOptions={{
@@ -122,14 +122,14 @@ function CaloriesCal(){
     )
 }
 
-function ExerciseDrawerMenu(){
-    return(
-        <DrawerMenu.Navigator screenOptions={{headerStyle: {backgroundColor: '#064273'}, headerTitleStyle: {color : 'white'}}}>
-            <DrawerMenu.Screen name="Calorie Calculator" component={CaloriesCal} options={{headerShown: false}}></DrawerMenu.Screen>
-            <DrawerMenu.Screen name="Your Static Report" component={ScheduleProgress} options={{headerShown: false}}></DrawerMenu.Screen>
-        </DrawerMenu.Navigator>
-    )
-}
+// function ExerciseDrawerMenu(){
+//     return(
+//         <DrawerMenu.Navigator screenOptions={{headerStyle: {backgroundColor: '#064273'}, headerTitleStyle: {color : 'white'}}}>
+//             <DrawerMenu.Screen name="Calorie Calculator" component={CaloriesCal} options={{headerShown: false}}></DrawerMenu.Screen>
+//             <DrawerMenu.Screen name="Your Static Report" component={ScheduleProgress} options={{headerShown: false}}></DrawerMenu.Screen>
+//         </DrawerMenu.Navigator>
+//     )
+// }
 
 function MainNavigator() {
     return(
@@ -149,7 +149,7 @@ function MainNavigator() {
                 options={
                   ({ route }) => ({
                       title: route.params.userId,
-                      headerShown: true,
+                      headerShown: false,
                   })
               }
             />
