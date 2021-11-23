@@ -8,7 +8,7 @@ import moment from 'moment';
 import { Ionicons } from '@expo/vector-icons';
 import { date } from 'yup';
 
-export default function SchedulePage({ navigation }){
+export default function SchedulePage({route, navigation }){
   const [calorieNeed, setCalorieNeed] = useState(500)
   const [allDateSchedule, setAllDateSchedule] = useState([
     {"date": "11/16/2021", "burn": 100},
