@@ -4,6 +4,7 @@ import { Formik, ErrorMessage } from 'formik';
 import { MaterialCommunityIcons} from '@expo/vector-icons';
 import * as Yup from "yup";
 import axios from "axios";
+import { replaceOne } from "../api/rest-api/models/Mode";
 
 const LoginSchema = Yup.object().shape({
     email: Yup.string()
@@ -32,8 +33,10 @@ const loginPage = (props) => {
                     password: values.password,
                 })
                 .then((response) => {
-                    console.log(response)
-                    props.navigation.navigate('FeaturePage')
+                    console.log(response.data)
+                    props.navigation.navigate('FeaturePage', {
+                        userId: response.data._id
+                    })
                 })
                 .catch((err) => {
                     setError('Email หรือ Password ไม่ถูกต้อง กรุณาลองใหม่')

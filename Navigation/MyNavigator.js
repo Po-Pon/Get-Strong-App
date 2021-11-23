@@ -79,13 +79,14 @@ function ScheduleProgress() {
   );
 }
 
-function ExerciseDrawerMenu() {
+function ExerciseDrawerMenu({route}) {
   return (
     <DrawerMenu.Navigator initialRouteName={SelectExerciseMode}
       screenOptions={{ headerStyle: { backgroundColor: "#3776D4"}, headerTintColor:'#fff' }}
     >
       <DrawerMenu.Screen
         name="WORKOUT"
+        initialParams={{ params: route.params.userId }}
         component={SelectExerciseMode}
         options={{ title: 'WORKOUT', color: '#fff'}}
       ></DrawerMenu.Screen>
@@ -104,22 +105,25 @@ function ExerciseDrawerMenu() {
 
 function MainNavigator() {
     return(
-        <Stack.Navigator initialRoutename="FeaturePage"
+        <Stack.Navigator initialRoutename="first"
             screenOptions = {{
                 headerStyle: { backgroundColor: "#3776D4"}, 
                 headerTintColor:'#fff',
                 headerShown: false,
             }}
             >
-            {/* <Stack.Screen name="first" component={FirstPage}
+            <Stack.Screen name="first" component={FirstPage}
                 options={{
                     headerShown: false,
                 }}
-            /> */}
+            />
             <Stack.Screen name="FeaturePage" component={ExerciseDrawerMenu}
-                options={{
-                    headerShown: false,
-                }}
+                options={
+                  ({ route }) => ({
+                      title: route.params.userId,
+                      headerShown: true,
+                  })
+              }
             />
             <Stack.Screen name="ExerciseMode" component={ExerciseMode}
                 options={
@@ -140,6 +144,7 @@ function MainNavigator() {
             <Stack.Screen name="ExercisePage" component={ExercisePage}
                options={
                     ({ route }) => ({
+                        title: "Exercise",
                         headerShown: true,
                     })
                 }

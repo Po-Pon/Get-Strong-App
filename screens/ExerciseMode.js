@@ -82,11 +82,17 @@ const ExerciseImage = (props) => (
 
 const ExerciseMode = (props) => {
 
+  const userId = props.route.params.userId;
+  console.log(userId)
   const exerciseModes = props.route.params.data;
   console.log(exerciseModes)
 
   const onPress = (index) => {
-    props.navigation.navigate('listOfExercisePage', {data: exerciseModes[index].list, namepage: exerciseModes[index].name})
+    props.navigation.navigate('listOfExercisePage', {
+      data: exerciseModes[index].list, namepage: exerciseModes[index].name, 
+      cal: exerciseModes[index].cal, duration: exerciseModes[index].duration,
+      userId: userId
+    })
   }
 
   return (

@@ -5,10 +5,12 @@ import axios from "axios";
 
 const SelectExerciseMode = (props) =>{
 
+    const userId = props.route.params;
+
     const onPress = (namepage, level) =>{
         axios.get(`http://localhost:8888/api/mode/${level}`)
         .then((response) => {
-            props.navigation.navigate('ExerciseMode', {namepage: namepage, data: response.data})
+            props.navigation.navigate('ExerciseMode', {namepage: namepage, data: response.data, userId: userId.params})
         })
         .catch((err) => {
             console.log(err);

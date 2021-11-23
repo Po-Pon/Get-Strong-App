@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState} from "react";
 import {
   SafeAreaView,
   View,
@@ -8,13 +8,16 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
+import axios from "axios";
 
 const Item = ({ data }) => (
   <View style={styles.item}>
     <View style={{ flexDirection: "row", alignItems: "center" }}>
       <Image
         style={styles.picture}
-        source={require("../assets/picture/logo.png")}
+        source={{
+          uri : data.image
+        }}
       />
       <View
         style={{ flex: 1, flexDirection: "column", justifyContent: "center" }}
@@ -36,27 +39,64 @@ const IsnumOrtime = (props) => {
 
 const listOfExercisePage = (props) => {
 
-  const DATA = props.route.params.data;
-  console.log(DATA);
+    const userId = props.route.params.userId;
+    console.log(userId)
+    const DATA = props.route.params.data;
+    const cal = props.route.params.cal;
+    const duration = props.route.params.duration;
+    const [DATAsum, setDATAsum] = useState([]);
 
-  const renderItem = ({ item }) => <Item data={item} />;
+    const renderItem = ({ item }) => <Item data={item} />;
 
-  return (
+      function sumData(array1, array2){
+        for(let i = 0 ; i < array1.length ; i++){
+            for(let j = 0 ; j <= 44 ; j++){
+                if(array1[i].name === array2[j].name){
+                    const data = {
+                      name: array1[i].name,
+                      num: array1[i].num,
+                      time: array1[i].time,
+                      image: array2[j].image
+                    } 
+                    setDATAsum(DATAsum => [...DATAsum, data]);
+                }
+            }
+        }
+    }
+
+    async function get(){
+        await axios.get("http://localhost:8888/api/exercise")
+            .then((response) => {
+              console.log(response.data)
+              sumData(DATA, response.data)
+              console.log(response.data)
+              console.log(DATAsum)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+  
+    useEffect(() => {
+        get();
+    }, [])
+
+    return (
     <>
-      <SafeAreaView style={styles.container}>
-        <FlatList
-          data={DATA}
-          renderItem={renderItem}
-          // keyExtractor={item => item.id}
-        />
-      </SafeAreaView>
-      <View style={styles.fixed}>
-        <TouchableOpacity style={styles.button} 
-            onPress = {() => {props.navigation.navigate('ExercisePage', {data: DATA})}}
-        >
-          <Text style={styles.textButton}>STRAT</Text>
-        </TouchableOpacity>
-      </View>
+        <SafeAreaView style={styles.container}>
+            <FlatList
+            data={DATAsum}
+            renderItem={renderItem}
+            // keyExtractor={item => item.id}
+            />
+        </SafeAreaView>
+        <View style={styles.fixed}>
+            <TouchableOpacity style={styles.button} 
+                onPress = {() => {props.navigation.navigate('ExercisePage', {data: DATAsum, cal:cal, duration:duration, userId: userId})}}
+            >
+            <Text style={styles.textButton}>STRAT</Text>
+            </TouchableOpacity>
+        </View>
     </>
   );
 };
@@ -75,7 +115,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   picture: {
-    width: 120,
+    width: 150,
     height: 120,
     marginRight: 20,
   },

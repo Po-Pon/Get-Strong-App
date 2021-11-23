@@ -2,7 +2,6 @@ const router = require('express').Router();
 const Mode = require("../models/Mode");
 const Exercise = require("../models/Exercise");
 
-
 router.post("/mode", async (req,res) => {
     try{
         
