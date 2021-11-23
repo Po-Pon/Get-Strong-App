@@ -7,16 +7,26 @@ import { format } from 'date-fns';
 import moment from 'moment';
 import { Ionicons } from '@expo/vector-icons';
 import { date } from 'yup';
+import axios from "axios";
 
 export default function SchedulePage({route, navigation }){
   const [calorieNeed, setCalorieNeed] = useState(500)
-  const [allDateSchedule, setAllDateSchedule] = useState([
-    {"date": "11/16/2021", "burn": 100},
-    {"date": "11/17/2021", "burn": 200},
-    {"date": "11/18/2021", "burn": 300},
-    {"date": "11/19/2021", "burn": 480},
-    {"date": "11/20/2021", "burn": 580},
-  ])
+  const [allDateSchedule, setAllDateSchedule] = useState([])
+
+  async function get(){
+    await axios.get("http://localhost:8888/api/" + route.params.params)
+        .then((response) => {
+          console.log(response)
+          setAllDateSchedule(response.data)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+}
+
+  useEffect(() => {
+    get()
+  })
 
   const searchCal = (date) => {
       for(let i = 0; i < allDateSchedule.length; i++){

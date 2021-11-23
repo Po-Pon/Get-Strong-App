@@ -82,7 +82,7 @@ function FirstPage() {
 
 function ExerciseDrawerMenu({route}) {
   return (
-    <DrawerMenu.Navigator initialRouteName={SelectExerciseMode}
+    <DrawerMenu.Navigator
       screenOptions={{ headerStyle: { backgroundColor: "#3776D4"}, headerTintColor:'#fff' }}
     >
       <DrawerMenu.Screen
@@ -93,11 +93,13 @@ function ExerciseDrawerMenu({route}) {
       ></DrawerMenu.Screen>
       <DrawerMenu.Screen
         name="Calorie Calculator"
+        initialParams={{params: route.params.userId}}
         component={CaloriesCal}
       ></DrawerMenu.Screen>
       <DrawerMenu.Screen
-        name="Your Schedule"
-        component={ScheduleProgress}
+        name="Your Static Calender"
+        initialParams={{ params: route.params.userId }}
+        component={ScheduleAndNotificationPage}
       ></DrawerMenu.Screen>
     </DrawerMenu.Navigator>
   );
@@ -177,6 +179,14 @@ function MainNavigator() {
                     })
                 }
             />
+            <Stack.Screen name="Static A Day" component={StaticADayPage}
+              options={
+                ({ route }) => ({
+                    title: "Static A Day",
+                    headerShown: true,
+                })
+              }
+            ></Stack.Screen>
         </Stack.Navigator>
     );
 }
