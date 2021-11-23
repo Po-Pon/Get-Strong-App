@@ -17,6 +17,7 @@ import ExerciseMode from '../screens/ExerciseMode';
 import SelectExerciseMode from '../screens/SelectExerciseModePage';
 import listOfExercisePage from "../screens/ListOfExercisePage";
 import ExercisePage from '../screens/ExercisePage';
+import CaloriesResult  from '../screens/CaloriesResult'
 
 // Icons
 import Ionicons from "react-native-vector-icons";
@@ -101,6 +102,33 @@ function ExerciseDrawerMenu({route}) {
       ></DrawerMenu.Screen>
     </DrawerMenu.Navigator>
   );
+function ScheduleProgress(){
+    return(
+        <Stack.Navigator screenOptions={{
+            headerStyle: {backgroundColor: '#064273'}, 
+            headerTitleStyle: {color : 'white'}}}>
+            <Stack.Screen name="Your Schedule" component={ScheduleAndNotificationPage} options={{headerTitle: "Your Static Report"}}></Stack.Screen>
+            <Stack.Screen name="Static A Day" component={StaticADayPage}></Stack.Screen>
+        </Stack.Navigator>
+    )
+}
+
+function CaloriesCal(){
+    return(
+        <Stack.Navigator screenOptions={{headerStyle: {backgroundColor: '#064273'}, headerTitleStyle: {color : 'white'}}}>
+            <Stack.Screen name="Calorie Calculate" component={CaloriesCalculatePage}></Stack.Screen>
+            <Stack.Screen name="Result" component={CaloriesResult} options={{headerShown: false}}></Stack.Screen>
+        </Stack.Navigator>
+    )
+}
+
+function ExerciseDrawerMenu(){
+    return(
+        <DrawerMenu.Navigator screenOptions={{headerStyle: {backgroundColor: '#064273'}, headerTitleStyle: {color : 'white'}}}>
+            <DrawerMenu.Screen name="Calorie Calculator" component={CaloriesCal} options={{headerShown: false}}></DrawerMenu.Screen>
+            <DrawerMenu.Screen name="Your Static Report" component={ScheduleProgress} options={{headerShown: false}}></DrawerMenu.Screen>
+        </DrawerMenu.Navigator>
+    )
 }
 
 function MainNavigator() {
