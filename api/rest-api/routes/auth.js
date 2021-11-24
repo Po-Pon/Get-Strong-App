@@ -3,36 +3,10 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 
-//update user
-router.put("/:id", async (req, res) => {
-
-  try{
-    const user = await User.find({
-      statistics: { burn:100}
-    });
-
-      res.status(200).json(user);
-  }catch (err) {
-    console.log(err);
-      return res.status(500).json(err);
-  }
-
-    // if (req.body.userId === req.params.id){
-
-         
-        
-
-    // }else{
-    //     return res.status(403).json("You can update only your account!");
-    // }
-});
-
 //get a user
 router.get("/:id", async (req, res) => {
     try{
-        const user = await User.find({statistics:[{date:"2021-11-22T14:06:55.527+00:00"}]});
-        // const {statistics,age, ...other} = user._doc;
-
+        const user = await User.findById(req.params.id);
 
         res.status(200).json(user);
     } catch (err) {
