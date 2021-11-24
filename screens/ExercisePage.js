@@ -175,7 +175,7 @@ const ForSuccess = (props) =>{
                             <Text  style={styles2.buttonText}>{SaveText}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            onPress = {() => {props.navigate('FeaturePage')}}
+                            onPress = {() => {props.navigate('FeaturePage', {userId: props.userId})}}
                         >
                             <Text  style={styles2.buttonText}>QUIT</Text>
                         </TouchableOpacity>

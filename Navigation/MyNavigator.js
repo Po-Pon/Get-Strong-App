@@ -150,7 +150,6 @@ function MainNavigator() {
             <Stack.Screen name="FeaturePage" component={ExerciseDrawerMenu}
                 options={
                   ({ route }) => ({
-                      title: route.params.userId,
                       headerShown: false,
                   })
               }
