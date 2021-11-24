@@ -10,13 +10,12 @@ import { date } from 'yup';
 import axios from "axios";
 
 export default function SchedulePage({route, navigation }){
-  const [calorieNeed, setCalorieNeed] = useState(500)
+  const [calorieNeed, setCalorieNeed] = useState(100)
   const [allDateSchedule, setAllDateSchedule] = useState([])
 
   async function get(){
     await axios.get("http://localhost:8888/api/" + route.params.params)
         .then((response) => {
-          console.log(response)
           setAllDateSchedule(response.data)
         })
         .catch((err) => {
@@ -24,16 +23,43 @@ export default function SchedulePage({route, navigation }){
         })
 }
 
+async function getCalNeed(){
+  await axios.get("http://localhost:8888/api/users/" + route.params.params)
+      .then((response) => {
+        calNeed(response.data.age, response.data.weight, response.data.height, response.data.gender)
+      })
+      .catch((err) => {
+          console.log(err)
+      })
+}
+
+
   useEffect(() => {
     get()
+    getCalNeed()
   })
 
-  const searchCal = (date) => {
+  const calNeed = (age, weight, height, sex) => {
+      let BMR = 0
+
+      if(sex == 1){
+        BMR = 66 + (13.7*weight) + (5*height) - (6.8*age)
+      }
+      else if(sex == 2){
+        BMR = 665 + (9.6*weight) + (1.8*height) - (4.7*age)
+      }
+
+      setCalorieNeed(Math.round((BMR*1.55)-BMR)/2)
+  }
+
+  const sumCal = (date) => {
+    let result = 0
       for(let i = 0; i < allDateSchedule.length; i++){
           if(moment(allDateSchedule[i].date).format('MM/D/YYYY') == moment(date).format('MM/D/YYYY')){
-              return allDateSchedule[i].burn
+              result += allDateSchedule[i].burn
           }
       }
+    return result
   }
 
   const colorLevel = (calBurn, calNeed) => {
@@ -58,7 +84,7 @@ export default function SchedulePage({route, navigation }){
   for(let i=0; i < allDateSchedule.length; i++) {
     customDatesStyles.push({
       date: allDateSchedule[i].date,
-      style: {backgroundColor: colorLevel(allDateSchedule[i].burn, calorieNeed)},
+      style: {backgroundColor: colorLevel(sumCal(allDateSchedule[i].date), calorieNeed)},
       textStyle: {color: 'black'},
       containerStyle: [],
       allowDisabled: true,
@@ -70,8 +96,9 @@ export default function SchedulePage({route, navigation }){
           <CalendarPicker 
           onDateChange={(date) => {
             let showDate = moment(date).format('MM/D/YYYY')
-            let cal = searchCal(date)
-            if(typeof(cal) == "undefined"){
+            let cal = sumCal(date)
+            console.log(calorieNeed)
+            if(cal == 0){
             navigation.navigate('Static A Day',
               {
                 day: showDate,
