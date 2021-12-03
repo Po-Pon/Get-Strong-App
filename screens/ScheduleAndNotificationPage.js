@@ -150,7 +150,6 @@ async function getCalNeed(){
       container: {
         flex: 1,
         backgroundColor: '#064273',
-        alignItems: 'center'
       },
       selectdaySchedules: {
         marginTop: 50,
