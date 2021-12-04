@@ -24,7 +24,8 @@ router.put("/:id", async (req, res) => {
       { _id : req.params.id},
       { $push: {"statistics": {
           date: new Date,
-          burn: req.body.burn
+          burn: req.body.burn,
+          exercise: req.body.exercise
       }}
     }
   );
