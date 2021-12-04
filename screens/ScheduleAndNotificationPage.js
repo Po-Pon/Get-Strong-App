@@ -37,7 +37,7 @@ async function getCalNeed(){
   useEffect(() => {
     get()
     getCalNeed()
-  })
+  }, [])
 
   const calNeed = (age, weight, height, sex) => {
       let BMR = 0
