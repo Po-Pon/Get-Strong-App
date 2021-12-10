@@ -4,65 +4,14 @@ import { processColor, StyleSheet, Text, View, ScrollView, FlatList } from 'reac
 import moment from 'moment';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { withTheme } from 'react-native-elements';
+import axios from "axios";
 
 export default function StaticADayPage({navigation, route}){
     const [timeNow, setTimeNow] = useState(new moment())
     const progress = route.params.burn/route.params.need
-    const [schedules, setSchedules] = useState([
-      {
-        id: '1',
-        mode: 'ABS BEGINNER',
-        calBurn: 200
-      },
-      {
-        id: '2',
-        mode: 'ABS BEGINNER',
-        calBurn: 200
-      },
-      {
-        id: '3',
-        mode: 'ABS BEGINNER',
-        calBurn: 200
-      },
-      {
-        id: '4',
-        mode: 'ABS ADVANCED',
-        calBurn: 330
-      },
-      {
-        id: '5',
-        mode: 'ABS Intermidiate',
-        calBurn: 270
-      },
-    ])
+    const [schedules, setSchedules] = useState([])
+    const [allMode, setAllMode] = useState([])
     const [display, setDisplay] = useState([])
-    
-
-    const scheduleDisplay = () => {
-      let result = []
-      let have = [0]
-      let j = 0
-      for(let i = 0; i < schedules.length; i++){
-        if(result.length == 0){
-          result.push(schedules[i])
-        }
-        else{
-          have[0] = 0
-          for(j; j < result.length; j++){
-            console.log(i + " " + j)
-            if(result[j].mode == schedules[i].mode){
-              result[j].calBurn = result[j].calBurn + schedules[i].calBurn
-              have[0] = 1
-              break
-            }
-          }
-          if(have[0] == 0){
-            result.push(schedules[i])
-          }
-        }
-      }
-      return result
-    }
 
     const refreshClock = () => {
         setTimeNow(new moment());
@@ -126,8 +75,8 @@ export default function StaticADayPage({navigation, route}){
     const scheduleList = ({item}) => {
       return(
         <View style={styles.exerciseList}>
-          <Text>Exercise Mode : {item.mode}</Text>
-          <Text>Calories Burn : {item.calBurn} Kcal</Text>
+          <Text>Exercise Mode : {item.exercise}</Text>
+          <Text>Calories Burn : {item.caloriesBurn} Kcal</Text>
         </View>
       )
     }
@@ -138,7 +87,7 @@ export default function StaticADayPage({navigation, route}){
           <View style={styles.schedules}>
             <Text style={{fontSize: 24, marginTop: 20, marginBottom: 20}}>Exercise In A Day</Text>
             <FlatList
-              data={display}
+              data={route.params.allExercise}
               renderItem={scheduleList}
               keyExtractor={item => item.id}
             />
@@ -188,7 +137,7 @@ export default function StaticADayPage({navigation, route}){
 
       useEffect(() => {
         clock()
-        setDisplay(scheduleDisplay())
+        console.log(route.params.allExercise)
       }, []);
 
     return (

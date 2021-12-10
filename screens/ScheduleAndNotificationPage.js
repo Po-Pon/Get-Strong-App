@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, SafeAreaView} from 'react-native';
 import CalendarPicker from 'react-native-calendar-picker';
@@ -8,6 +8,7 @@ import moment from 'moment';
 import { Ionicons } from '@expo/vector-icons';
 import { date } from 'yup';
 import axios from "axios";
+import { useFocusEffect } from '@react-navigation/native'
 
 export default function SchedulePage({route, navigation }){
   const [calorieNeed, setCalorieNeed] = useState(100)
@@ -35,9 +36,15 @@ async function getCalNeed(){
 
 
   useEffect(() => {
-    get()
     getCalNeed()
   }, [])
+
+  useFocusEffect(
+    useCallback(() => {
+      get()
+    }, [])
+  )
+
 
   const calNeed = (age, weight, height, sex) => {
       let BMR = 0
@@ -58,6 +65,19 @@ async function getCalNeed(){
           if(moment(allDateSchedule[i].date).format('MM/D/YYYY') == moment(date).format('MM/D/YYYY')){
               result += allDateSchedule[i].burn
           }
+      }
+    return result
+  }
+
+  const allExercise = (data) => {
+    let result = []
+      for(let i = 0; i < allDateSchedule.length; i++){
+        if(moment(allDateSchedule[i].date).format('MM/D/YYYY') == moment(data).format('MM/D/YYYY')){
+            result.push({
+              caloriesBurn : allDateSchedule[i].burn,
+              exercise: allDateSchedule[i].exercise}
+            )
+        }
       }
     return result
   }
@@ -97,6 +117,7 @@ async function getCalNeed(){
           onDateChange={(date) => {
             let showDate = moment(date).format('MM/D/YYYY')
             let cal = sumCal(date)
+            let exercise = allExercise(date)
             console.log(calorieNeed)
             if(cal == 0){
             navigation.navigate('Static A Day',
@@ -113,6 +134,7 @@ async function getCalNeed(){
                 day: showDate,
                 need: calorieNeed,
                 burn: cal,
+                allExercise: exercise.reverse(),
                 ex: true
               })
             }
