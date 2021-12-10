@@ -49,10 +49,10 @@ export default function StaticADayPage({navigation, route}){
         else{
           have[0] = 0
           for(j; j < result.length; j++){
+            console.log(i + " " + j)
             if(result[j].mode == schedules[i].mode){
               result[j].calBurn = result[j].calBurn + schedules[i].calBurn
               have[0] = 1
-              console.log(have)
               break
             }
           }
