@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
   fixed: {
     justifyContent: "center",
     alignItems: "center",
-    position: "flex",
+    position: "relative",
     height: 60,
     backgroundColor: "#3776D4",
   },
