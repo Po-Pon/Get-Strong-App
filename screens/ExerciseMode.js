@@ -65,7 +65,7 @@ const ExerciseImage = (props) => (
       <Text
         style={{
           color: "#fff",
-          marginBottom: 95,
+          marginBottom: 80,
           fontWeight: "bold",
           fontSize: 20,
           textShadowColor: "rgba(0, 0, 0, 0.75)",
@@ -73,7 +73,10 @@ const ExerciseImage = (props) => (
           textShadowRadius: 10,
         }}
       >
-        {props.name}
+        {props.name}{"\n"}
+        <Text style={{fontSize: 15}}>
+          Kcal: {props.cal}
+        </Text>
       </Text>
       <Dumbbell level={props.level}/>
     </View>
@@ -83,9 +86,7 @@ const ExerciseImage = (props) => (
 const ExerciseMode = (props) => {
 
   const userId = props.route.params.userId;
-  console.log(userId)
   const exerciseModes = props.route.params.data;
-  console.log(exerciseModes)
 
   const onPress = (index) => {
     props.navigation.navigate('listOfExercisePage', {
@@ -118,6 +119,7 @@ const ExerciseMode = (props) => {
                   level={exerciseMode.level}
                   name={exerciseMode.name}
                   image={exerciseMode.image}
+                  cal={exerciseMode.cal}
                 />
               </View>
             </TouchableOpacity>

@@ -5,7 +5,7 @@ import { MaterialCommunityIcons} from '@expo/vector-icons';
 import { color } from "react-native-reanimated";
 import axios from "axios";
 
-// จับเวลา
+// หน้าจับเวลา
 const ForTime = (props) =>{
 
     const formatNumber = number => `0${number}`.slice(-2); // หรือ ('0' + (number).toString()).slice(-2)
@@ -98,7 +98,7 @@ const ForTime = (props) =>{
     );
 }
 
-// จำนวนครั้ง
+// หน้าจำนวนครั้ง
 const ForNum = (props) =>{
     return(
         <View style={styles1.container}>
@@ -123,7 +123,7 @@ const ForNum = (props) =>{
     );
 }
 
-// 1 วิ นาที = 0.167 แคล
+// หน้า result
 const ForSuccess = (props) =>{
 
     const [SaveText,setSaveText] = useState('SAVE');
@@ -131,7 +131,8 @@ const ForSuccess = (props) =>{
 
     async function SaveData(){
         await axios.put(`http://localhost:8888/api/${props.userId}`, {
-            burn: props.cal
+            burn: props.cal,
+            mode: props.mode
         }).then((response) => {
             console.log(response)
             setSaveText('')
@@ -187,11 +188,12 @@ const ForSuccess = (props) =>{
     );
 }
 
+// check ว่าจะ return หน้าไหน
 const Check = (props) =>{
     if(props.success == true){
         return(
             <ForSuccess 
-                exercises={props.exercises} cal={props.cal} duration={props.duration} navigate={props.navigate} goBack={props.goBack} userId={props.userId}
+                exercises={props.exercises} cal={props.cal} mode={props.mode} duration={props.duration} navigate={props.navigate} goBack={props.goBack} userId={props.userId}
             />
         );
     }
@@ -212,7 +214,6 @@ const ExercisePage = (props) =>{
 
     const [count, setCount] = useState(0);
     const userId = props.route.params.userId;
-    console.log(userId)
     const DATA = props.route.params.data;
     const cal = props.route.params.cal;
     const duration = props.route.params.duration;
@@ -227,6 +228,7 @@ const ExercisePage = (props) =>{
                 <Check
                     success={true}
                     exercises={DATA.length}
+                    mode={props.route.params.modeName}
                     cal={cal}
                     duration={duration}
                     navigate={props.navigation.navigate}

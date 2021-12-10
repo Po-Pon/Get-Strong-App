@@ -4,7 +4,6 @@ import { processColor, StyleSheet, Text, View, ScrollView, FlatList } from 'reac
 import moment from 'moment';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { withTheme } from 'react-native-elements';
-import CircularProgressBar from 'react-native-circular-progress-indicator'
 
 export default function StaticADayPage({navigation, route}){
     const [timeNow, setTimeNow] = useState(new moment())

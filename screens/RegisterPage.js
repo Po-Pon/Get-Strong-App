@@ -221,7 +221,6 @@ const styles = StyleSheet.create({
     },
     form:{
         width: 350,
-        height: 600,
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: '#1da2d8',
@@ -269,6 +268,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         backgroundColor: "#003f59",
         marginTop: 20,
+        marginBottom: 20
     },
     textButton:{
         fontSize: 20,

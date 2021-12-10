@@ -40,7 +40,6 @@ const IsnumOrtime = (props) => {
 const listOfExercisePage = (props) => {
 
     const userId = props.route.params.userId;
-    console.log(userId)
     const DATA = props.route.params.data;
     const cal = props.route.params.cal;
     const duration = props.route.params.duration;
@@ -69,8 +68,6 @@ const listOfExercisePage = (props) => {
             .then((response) => {
               console.log(response.data)
               sumData(DATA, response.data)
-              console.log(response.data)
-              console.log(DATAsum)
             })
             .catch((err) => {
                 console.log(err)
@@ -92,7 +89,7 @@ const listOfExercisePage = (props) => {
         </SafeAreaView>
         <View style={styles.fixed}>
             <TouchableOpacity style={styles.button} 
-                onPress = {() => {props.navigation.navigate('ExercisePage', {data: DATAsum, cal:cal, duration:duration, userId: userId})}}
+                onPress = {() => {props.navigation.navigate('ExercisePage', {data: DATAsum, cal:cal, duration:duration, userId: userId, modeName: props.route.params.namepage})}}
             >
             <Text style={styles.textButton}>STRAT</Text>
             </TouchableOpacity>
@@ -108,8 +105,8 @@ const styles = StyleSheet.create({
   item: {
     backgroundColor: "#fff",
     paddingHorizontal: 20,
-    borderColor: "#000",
-    borderBottomWidth: 1,
+    borderBottomColor: '#f4f4f4',
+    borderBottomWidth: 2,
   },
   title: {
     fontSize: 20,

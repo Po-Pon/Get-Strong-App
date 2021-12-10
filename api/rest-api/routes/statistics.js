@@ -16,6 +16,17 @@ router.get("/:id", async (req, res) => {
     }
 });
 
+// get data
+router.get("/AllUserData/:id", async (req, res) => {
+  try{
+      const user = await User.findById(req.params.id);
+      
+      res.status(200).json(user);
+  }catch(err) {
+      console.log(err)
+  }
+});
+
 // Update statistics user
 router.put("/:id", async (req, res) => {
   try {
@@ -25,7 +36,7 @@ router.put("/:id", async (req, res) => {
       { $push: {"statistics": {
           date: new Date,
           burn: req.body.burn,
-          exercise: req.body.exercise
+          exercise: req.body.mode
       }}
     }
   );
