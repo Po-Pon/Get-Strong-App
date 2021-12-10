@@ -4,7 +4,6 @@ import { processColor, StyleSheet, Text, View, ScrollView, FlatList } from 'reac
 import moment from 'moment';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { withTheme } from 'react-native-elements';
-import CircularProgressBar from 'react-native-circular-progress-indicator'
 
 export default function StaticADayPage({navigation, route}){
     const [timeNow, setTimeNow] = useState(new moment())
@@ -50,10 +49,10 @@ export default function StaticADayPage({navigation, route}){
         else{
           have[0] = 0
           for(j; j < result.length; j++){
+            console.log(i + " " + j)
             if(result[j].mode == schedules[i].mode){
               result[j].calBurn = result[j].calBurn + schedules[i].calBurn
               have[0] = 1
-              console.log(have)
               break
             }
           }
